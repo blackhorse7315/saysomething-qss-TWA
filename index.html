@@ -10,178 +10,172 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <style>
-    /* Custom Scrollbar for Modal */
+    /* Custom Scrollbar */
     .custom-scrollbar::-webkit-scrollbar { width: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
     /* Animasi Loading */
-    .loading-pulse {
-      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: .5; }
-    }
+    .loading-pulse { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
 
     /* Print Optimization */
     @media print {
       body { background-color: white !important; }
-      .print-shadow-none { shadow: none !important; }
+      .print-hide { display: none !important; }
       @page { margin: 1cm; }
     }
   </style>
 </head>
 <body class="bg-[#F8FAFC] font-sans text-slate-800 antialiased selection:bg-slate-200">
 
+  <!-- URL WEB APP GOOGLE SCRIPT -->
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbytRQsVQcr4vqe01nnbNs8Lu-BDdgKQZ1r9VRo1t5Uv7kRBorgVv2fbzszVhVZ7kHtR/exec';
+  </script>
+
   <!-- ==================== SPLASH SCREEN ==================== -->
-  <div id="view-splash" class="fixed inset-0 z-50 bg-[#0A1931] flex flex-col items-center justify-center overflow-hidden transition-opacity duration-700 ease-in-out opacity-0">
-    <div class="absolute w-[280px] h-[280px] border border-white/5 rounded-full"></div>
-    <div class="absolute w-[450px] h-[450px] border border-white/5 rounded-full"></div>
-    <div class="absolute w-[650px] h-[650px] border border-white/5 rounded-full"></div>
+  <div id="view-splash" class="fixed inset-0 z-50 bg-[#0A1931] flex flex-col items-center justify-center overflow-hidden transition-opacity duration-700 opacity-0 pointer-events-none">
+    <div class="absolute w-[300px] h-[300px] border border-white/5 rounded-full"></div>
+    <div class="absolute w-[500px] h-[500px] border border-white/5 rounded-full"></div>
     
     <div class="z-10 flex flex-col items-center text-center px-6">
-      <p class="text-[#C5A866] text-[10px] md:text-xs font-bold tracking-[0.3em] mb-4">WELCOME TO</p>
+      <p class="text-[#C5A866] text-xs font-bold tracking-[0.3em] mb-4 uppercase">Welcome To</p>
       <h1 class="text-white text-5xl md:text-6xl font-serif mb-3 tracking-tight">Say Something</h1>
-      <p class="text-blue-100/70 text-sm mb-8 font-light tracking-wide">Application</p>
-      <div class="w-32 h-[1px] bg-[#C5A866]/60 mb-8"></div>
-      <p class="text-[#C5A866] text-[9px] md:text-[11px] font-bold tracking-[0.2em] mb-3 uppercase">Quality, Safety & Security Department</p>
+      <p class="text-blue-100/70 text-sm mb-8 font-light tracking-wide uppercase">Application</p>
+      <div class="w-32 h-[1px] bg-[#C5A866]/60 mb-8 mx-auto"></div>
+      <p class="text-[#C5A866] text-[10px] font-bold tracking-[0.2em] mb-3 uppercase">Quality, Safety & Security Department</p>
       <p class="text-slate-300 text-xl font-serif italic">Transwisata</p>
     </div>
   </div>
 
   <!-- ==================== MAIN FORM VIEW ==================== -->
-  <div id="view-form" class="hidden min-h-screen py-12 px-4 flex items-center justify-center">
+  <div id="view-form" class="hidden min-h-screen py-12 px-4 flex flex-col items-center justify-center">
     <div class="w-full max-w-2xl bg-white shadow-2xl shadow-slate-200/40 rounded-[24px] overflow-hidden border border-slate-100">
       
       <!-- Header -->
       <div class="px-8 pt-12 pb-8 text-center bg-white flex flex-col items-center">
-        
-        <!-- Logo Utama -->
-        <div class="relative inline-flex items-center justify-center w-24 h-24 mb-6 transition-transform duration-500 hover:scale-105">
-          <div id="logo-loading" class="absolute inset-0 bg-slate-50 rounded-xl flex items-center justify-center loading-pulse">
-            <i data-lucide="image" class="w-6 h-6 text-slate-300"></i>
-          </div>
-          <img 
-            src="https://lh3.googleusercontent.com/d/14rgNQMNWLMZw5A-BBysAlSrZM6i7x-j3" 
-            alt="Logo Say Something" 
-            class="w-full h-full object-contain relative z-10 opacity-0 transition-opacity duration-500"
-            onload="this.classList.remove('opacity-0'); document.getElementById('logo-loading').classList.add('hidden');"
-            onerror="this.onerror=null; this.src='https://placehold.co/100x100/0A1931/C5A866?text=LOGO';" 
-          />
+        <!-- Main Logo Crest -->
+        <div class="relative w-40 h-40 mb-6 drop-shadow-2xl transition-transform duration-500 hover:scale-105">
+          <img src="https://lh3.googleusercontent.com/d/14rgNQMNWLMZw5A-BBysAlSrZM6i7x-j3" alt="Transwisata Logo" class="w-full h-full object-contain" />
         </div>
 
-        <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-2">Say Something</h1>
-        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-[0.2em] mb-5">Safety Report System</h2>
-        <div class="relative w-full">
-          <div class="absolute inset-0 flex items-center" aria-hidden="true"><div class="w-full border-t border-slate-100"></div></div>
-          <div class="relative flex justify-center">
-            <span class="bg-white px-4 text-[15px] font-medium text-slate-500 italic text-center max-w-[90%]">
-              "If You See Something, Say Something.<br/>If You Hear Something, Say Something."
-            </span>
-          </div>
-        </div>
+        <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-2 uppercase">Say Something</h1>
+        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Safety Report System</h2>
+        
+        <p class="text-slate-500 italic text-base leading-relaxed max-w-[90%] mx-auto">
+          "If You See Something, Say Something. If You Hear Something, Say Something."
+        </p>
       </div>
 
       <!-- Form Body -->
-      <form id="reportForm" class="px-8 pb-10 space-y-8">
+      <form id="reportForm" class="px-8 pb-10 space-y-10">
         
-        <!-- Report Types -->
+        <!-- Type of Report (3D Badges) -->
         <div>
-          <label class="block text-sm font-bold text-slate-900 mb-6 uppercase tracking-wider">Type of Report <span class="text-rose-500">*</span></label>
+          <label class="block text-sm font-bold text-slate-900 mb-8 uppercase tracking-wider">Type of Report <span class="text-rose-500">*</span></label>
           <div class="grid grid-cols-3 gap-2 md:gap-4 justify-items-center">
             
-            <button type="button" id="btn-safety" onclick="toggleReportType('safety')" class="type-btn relative flex flex-col items-center justify-center p-1 mb-6 transition-all duration-300 transform outline-none grayscale opacity-60 hover:grayscale-0 hover:opacity-100">
-              <div class="check-icon hidden absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-emerald-500 border-[3px] border-white rounded-full p-1 shadow-lg z-40">
-                 <i data-lucide="check" class="w-3 h-3 md:w-5 md:h-5 text-white stroke-[4]"></i>
+            <!-- SAFETY -->
+            <button type="button" id="btn-safety" onclick="toggleReportType('safety')" class="type-btn relative flex flex-col items-center justify-center p-1 mb-6 transition-all duration-300 transform outline-none grayscale opacity-60">
+              <div class="check-icon hidden absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-emerald-500 border-2 border-white rounded-full p-1 shadow-lg z-40 text-white">
+                 <i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 stroke-[4]"></i>
               </div>
-              <div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-b from-slate-200 to-slate-400 p-[3px] md:p-1 shadow-[0_8px_15px_rgba(0,0,0,0.3)]">
-                <div class="w-full h-full rounded-full border-[1.5px] md:border-2 border-white bg-gradient-to-b from-[#14532d] to-[#064e3b] overflow-hidden relative">
-                  <div class="absolute top-0 w-full h-[45%] bg-white/10 rounded-b-[100%]"></div>
-                  <i data-lucide="hard-hat" class="absolute top-2 left-2 md:top-3 md:left-3 w-7 h-7 md:w-9 md:h-9 text-slate-100 drop-shadow-md fill-slate-200/50 z-10 stroke-[1.5]"></i>
-                  <i data-lucide="shield-check" class="absolute bottom-1.5 right-1.5 md:bottom-3 md:right-3 w-9 h-9 md:w-12 md:h-12 text-emerald-400 drop-shadow-lg fill-[#065f46] z-20 stroke-[1.5]"></i>
-                </div>
-              </div>
-              <div class="absolute -bottom-4 z-30 w-[115%] bg-gradient-to-b from-[#22c55e] to-[#15803d] border-[1.5px] border-slate-200 rounded shadow-lg py-1 flex flex-col items-center">
-                 <span class="text-white font-black text-[11px] md:text-[14px] leading-none drop-shadow-md tracking-wider whitespace-nowrap uppercase">SAFETY</span>
-                 <span class="text-white font-extrabold text-[8px] md:text-[10px] leading-none drop-shadow-md mt-0.5">REPORT</span>
-              </div>
-            </button>
-
-            <button type="button" id="btn-security" onclick="toggleReportType('security')" class="type-btn relative flex flex-col items-center justify-center p-1 mb-6 transition-all duration-300 transform outline-none grayscale opacity-60 hover:grayscale-0 hover:opacity-100">
-              <div class="check-icon hidden absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-blue-500 border-[3px] border-white rounded-full p-1 shadow-lg z-40">
-                 <i data-lucide="check" class="w-3 h-3 md:w-5 md:h-5 text-white stroke-[4]"></i>
-              </div>
-              <div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-b from-slate-200 to-slate-400 p-[3px] md:p-1 shadow-[0_8px_15px_rgba(0,0,0,0.3)]">
-                <div class="w-full h-full rounded-full border-[1.5px] md:border-2 border-white bg-gradient-to-b from-[#7f1d1d] to-[#450a0a] overflow-hidden relative">
-                  <div class="absolute top-0 w-full h-[45%] bg-white/10 rounded-b-[100%]"></div>
-                  <i data-lucide="cctv" class="absolute top-2 left-1.5 md:top-3 md:left-2 w-7 h-7 md:w-9 md:h-9 text-slate-100 drop-shadow-md fill-slate-200/50 z-10 stroke-[1.5]"></i>
-                  <div class="absolute bottom-1.5 right-1.5 md:bottom-3 md:right-3 w-9 h-9 md:w-12 md:h-12 drop-shadow-lg flex items-center justify-center z-20">
-                     <i data-lucide="shield" class="absolute inset-0 w-full h-full fill-[#991b1b] text-rose-400 stroke-[1.5]"></i>
-                     <i data-lucide="lock" class="relative z-10 w-3.5 h-3.5 md:w-5 md:h-5 text-white fill-white"></i>
+              <div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-b from-slate-200 to-slate-400 p-1 shadow-lg">
+                <div class="w-full h-full rounded-full border-2 border-white bg-gradient-to-b from-[#14532d] to-[#064e3b] overflow-hidden relative flex items-center justify-center">
+                  <div class="flex flex-col items-center">
+                    <i data-lucide="hard-hat" class="w-6 h-6 md:w-8 md:h-8 text-white/40 mb-1"></i>
+                    <i data-lucide="shield-check" class="w-8 h-8 md:w-10 md:h-10 text-emerald-400 drop-shadow-md fill-emerald-900"></i>
                   </div>
                 </div>
               </div>
-              <div class="absolute -bottom-4 z-30 w-[115%] bg-gradient-to-b from-[#ef4444] to-[#b91c1c] border-[1.5px] border-slate-200 rounded shadow-lg py-1 flex flex-col items-center">
-                 <span class="text-white font-black text-[11px] md:text-[14px] leading-none drop-shadow-md tracking-wider whitespace-nowrap uppercase">SECURITY</span>
-                 <span class="text-white font-extrabold text-[8px] md:text-[10px] leading-none drop-shadow-md mt-0.5">REPORT</span>
+              <div class="absolute -bottom-4 z-30 w-[115%] bg-gradient-to-b from-[#22c55e] to-[#15803d] border border-white rounded shadow-lg py-1 flex flex-col items-center">
+                 <span class="text-white font-black text-[9px] md:text-[11px] leading-none drop-shadow-md tracking-wider">SAFETY</span>
+                 <span class="text-white font-extrabold text-[7px] md:text-[8px] leading-none mt-0.5 uppercase">Report</span>
               </div>
             </button>
 
-            <button type="button" id="btn-improvement" onclick="toggleReportType('improvement')" class="type-btn relative flex flex-col items-center justify-center p-1 mb-6 transition-all duration-300 transform outline-none grayscale opacity-60 hover:grayscale-0 hover:opacity-100">
-              <div class="check-icon hidden absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-amber-500 border-[3px] border-white rounded-full p-1 shadow-lg z-40">
-                 <i data-lucide="check" class="w-3 h-3 md:w-5 md:h-5 text-white stroke-[4]"></i>
+            <!-- SECURITY -->
+            <button type="button" id="btn-security" onclick="toggleReportType('security')" class="type-btn relative flex flex-col items-center justify-center p-1 mb-6 transition-all duration-300 transform outline-none grayscale opacity-60">
+              <div class="check-icon hidden absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-blue-500 border-2 border-white rounded-full p-1 shadow-lg z-40 text-white">
+                 <i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 stroke-[4]"></i>
               </div>
-              <div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-b from-slate-200 to-slate-400 p-[3px] md:p-1 shadow-[0_8px_15px_rgba(0,0,0,0.3)]">
-                <div class="w-full h-full rounded-full border-[1.5px] md:border-2 border-white bg-gradient-to-b from-[#1e3a8a] to-[#172554] overflow-hidden relative">
-                  <div class="absolute top-0 w-full h-[45%] bg-white/10 rounded-b-[100%]"></div>
-                  <i data-lucide="bar-chart-3" class="absolute bottom-2 left-2 md:bottom-3 md:left-3 w-8 h-8 md:w-11 md:h-11 text-blue-400 drop-shadow-md fill-[#1e40af] z-10 stroke-[1.5]"></i>
-                  <i data-lucide="trending-up" class="absolute top-2 right-2 md:top-3 md:right-3 w-7 h-7 md:w-9 md:h-9 text-slate-100 drop-shadow-md z-20 stroke-[3]"></i>
+              <div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-b from-slate-200 to-slate-400 p-1 shadow-lg">
+                <div class="w-full h-full rounded-full border-2 border-white bg-gradient-to-b from-[#7f1d1d] to-[#450a0a] overflow-hidden relative flex items-center justify-center">
+                    <div class="flex flex-col items-center">
+                        <i data-lucide="cctv" class="w-6 h-6 md:w-8 md:h-8 text-white/40 mb-1"></i>
+                        <i data-lucide="lock" class="w-8 h-8 md:w-10 md:h-10 text-rose-400 drop-shadow-md fill-rose-900"></i>
+                    </div>
                 </div>
               </div>
-              <div class="absolute -bottom-4 z-30 w-[120%] bg-gradient-to-b from-[#3b82f6] to-[#1d4ed8] border-[1.5px] border-slate-200 rounded shadow-lg py-1 flex flex-col items-center">
-                 <span class="text-white font-black text-[9px] md:text-[12px] leading-none drop-shadow-md tracking-wider whitespace-nowrap uppercase">IMPROVEMENT</span>
-                 <span class="text-white font-extrabold text-[7px] md:text-[9px] leading-none drop-shadow-md mt-0.5">REPORT</span>
+              <div class="absolute -bottom-4 z-30 w-[115%] bg-gradient-to-b from-[#ef4444] to-[#b91c1c] border border-white rounded shadow-lg py-1 flex flex-col items-center">
+                 <span class="text-white font-black text-[9px] md:text-[11px] leading-none drop-shadow-md tracking-wider">SECURITY</span>
+                 <span class="text-white font-extrabold text-[7px] md:text-[8px] leading-none mt-0.5 uppercase">Report</span>
+              </div>
+            </button>
+
+            <!-- IMPROVEMENT -->
+            <button type="button" id="btn-improvement" onclick="toggleReportType('improvement')" class="type-btn relative flex flex-col items-center justify-center p-1 mb-6 transition-all duration-300 transform outline-none grayscale opacity-60">
+              <div class="check-icon hidden absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-amber-500 border-2 border-white rounded-full p-1 shadow-lg z-40 text-white">
+                 <i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 stroke-[4]"></i>
+              </div>
+              <div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-b from-slate-200 to-slate-400 p-1 shadow-lg">
+                <div class="w-full h-full rounded-full border-2 border-white bg-gradient-to-b from-[#1e3a8a] to-[#172554] overflow-hidden relative flex items-center justify-center">
+                    <div class="flex flex-col items-center">
+                        <i data-lucide="trending-up" class="w-6 h-6 md:w-8 md:h-8 text-white/40 mb-1"></i>
+                        <i data-lucide="bar-chart-3" class="w-8 h-8 md:w-10 md:h-10 text-blue-400 drop-shadow-md fill-[#1e40af]"></i>
+                    </div>
+                </div>
+              </div>
+              <div class="absolute -bottom-4 z-30 w-[120%] bg-gradient-to-b from-[#3b82f6] to-[#1d4ed8] border border-white rounded shadow-lg py-1 flex flex-col items-center">
+                 <span class="text-white font-black text-[8px] md:text-[10px] leading-none drop-shadow-md tracking-wider">IMPROVEMENT</span>
+                 <span class="text-white font-extrabold text-[7px] md:text-[8px] leading-none mt-0.5 uppercase">Report</span>
               </div>
             </button>
 
           </div>
         </div>
 
-        <div class="pt-4"><hr class="border-slate-100" /></div>
-
         <!-- Form Fields -->
-        <div class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label class="flex items-center text-sm font-bold text-slate-700 mb-2"><i data-lucide="clock" class="w-4 h-4 mr-2 text-slate-400"></i> Date & Time <span class="text-rose-500 ml-1">*</span></label>
-              <input type="datetime-local" id="f-dateTime" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none text-sm font-medium" required />
-            </div>
-            <div>
-              <label class="flex items-center text-sm font-bold text-slate-700 mb-2"><i data-lucide="map-pin" class="w-4 h-4 mr-2 text-slate-400"></i> Location <span class="text-rose-500 ml-1">*</span></label>
-              <input type="text" id="f-location" placeholder="E.g., Lobby Area, Floor 3" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none text-sm font-medium placeholder:font-normal" required />
-            </div>
-          </div>
+        <div class="space-y-6 pt-4">
           <div>
-            <label class="flex items-center text-sm font-bold text-slate-700 mb-2"><i data-lucide="file-text" class="w-4 h-4 mr-2 text-slate-400"></i> Description of Incident <span class="text-rose-500 ml-1">*</span></label>
-            <textarea id="f-description" placeholder="Please describe what you saw or heard..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl h-32 resize-none focus:ring-2 focus:ring-slate-900 outline-none text-sm font-medium placeholder:font-normal" required></textarea>
+            <label class="flex items-center text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+              <i data-lucide="clock" class="w-4 h-4 mr-2 text-blue-500"></i> Date & Time <span class="text-rose-500 ml-1 font-black">*</span>
+            </label>
+            <input type="datetime-local" id="f-dateTime" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none transition-all text-sm font-medium" required />
           </div>
 
           <div>
-            <label class="flex items-center text-sm font-bold text-slate-700 mb-3"><i data-lucide="alert-circle" class="w-4 h-4 mr-2 text-slate-400"></i> Risk Level <span class="text-rose-500 ml-1">*</span></label>
-            <div class="grid grid-cols-3 gap-2 md:gap-4">
-              <label class="relative cursor-pointer w-full">
-                <input type="radio" name="riskLevel" value="low" class="peer sr-only" onchange="setRisk('low')" />
-                <div class="w-full text-center py-2.5 rounded-xl border-2 border-slate-100 bg-white text-[12px] md:text-sm font-bold text-slate-500 peer-checked:bg-emerald-500 peer-checked:text-white peer-checked:border-emerald-500 transition-all">Low Risk</div>
+            <label class="flex items-center text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+              <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-blue-500"></i> Location <span class="text-rose-500 ml-1 font-black">*</span>
+            </label>
+            <input type="text" id="f-location" placeholder="E.g., Lobby Area, Floor 3" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none transition-all text-sm font-medium" required />
+          </div>
+
+          <div>
+            <label class="flex items-center text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+              <i data-lucide="file-text" class="w-4 h-4 mr-2 text-blue-500"></i> Description of Incident <span class="text-rose-500 ml-1 font-black">*</span>
+            </label>
+            <textarea id="f-description" placeholder="Please describe what you saw or heard..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl h-32 resize-none focus:ring-2 focus:ring-slate-900 outline-none transition-all text-sm font-medium leading-relaxed" required></textarea>
+          </div>
+
+          <!-- Risk Level -->
+          <div>
+            <label class="flex items-center text-sm font-bold text-slate-700 mb-3 uppercase tracking-wide">
+              <i data-lucide="alert-circle" class="w-4 h-4 mr-2 text-blue-500"></i> Risk Level <span class="text-rose-500 ml-1 font-black">*</span>
+            </label>
+            <div class="grid grid-cols-3 gap-3">
+              <label class="relative cursor-pointer">
+                <input type="radio" name="riskLevel" value="low" class="peer sr-only" onchange="selectedRisk='low'" />
+                <div class="text-center py-2.5 rounded-xl border border-slate-200 bg-white text-[12px] font-bold text-slate-400 peer-checked:bg-emerald-500 peer-checked:text-white peer-checked:border-emerald-600 transition-all uppercase">Low Risk</div>
               </label>
-              <label class="relative cursor-pointer w-full">
-                <input type="radio" name="riskLevel" value="medium" class="peer sr-only" onchange="setRisk('medium')" />
-                <div class="w-full text-center py-2.5 rounded-xl border-2 border-slate-100 bg-white text-[12px] md:text-sm font-bold text-slate-500 peer-checked:bg-amber-500 peer-checked:text-white peer-checked:border-amber-500 transition-all">Medium Risk</div>
+              <label class="relative cursor-pointer">
+                <input type="radio" name="riskLevel" value="medium" class="peer sr-only" onchange="selectedRisk='medium'" />
+                <div class="text-center py-2.5 rounded-xl border border-slate-200 bg-white text-[12px] font-bold text-slate-400 peer-checked:bg-amber-500 peer-checked:text-white peer-checked:border-amber-600 transition-all uppercase">Medium Risk</div>
               </label>
-              <label class="relative cursor-pointer w-full">
-                <input type="radio" name="riskLevel" value="high" class="peer sr-only" onchange="setRisk('high')" />
-                <div class="w-full text-center py-2.5 rounded-xl border-2 border-slate-100 bg-white text-[12px] md:text-sm font-bold text-slate-500 peer-checked:bg-rose-500 peer-checked:text-white peer-checked:border-rose-500 transition-all">High Risk</div>
+              <label class="relative cursor-pointer">
+                <input type="radio" name="riskLevel" value="high" class="peer sr-only" onchange="selectedRisk='high'" />
+                <div class="text-center py-2.5 rounded-xl border border-slate-200 bg-white text-[12px] font-bold text-slate-400 peer-checked:bg-rose-600 peer-checked:text-white peer-checked:border-rose-700 transition-all uppercase">High Risk</div>
               </label>
             </div>
           </div>
@@ -189,330 +183,330 @@
 
         <hr class="border-slate-100" />
 
-        <!-- Upload Photo -->
-        <div>
+        <!-- Upload Section -->
+        <div onclick="document.getElementById('f-photo').click()" id="upload-box" class="group border-2 border-dashed border-slate-200 bg-slate-50/50 hover:bg-slate-50 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all">
           <input type="file" id="f-photo" accept="image/*" class="hidden" onchange="handlePhoto(event)" />
-          <div id="upload-box" onclick="document.getElementById('f-photo').click()" class="border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all">
-            <div id="upload-default" class="flex flex-col items-center">
-              <div class="bg-white p-3 rounded-full mb-3 shadow-sm border border-slate-100"><i data-lucide="camera" class="w-6 h-6 text-slate-400"></i></div>
-              <span class="text-sm font-bold text-slate-700">Upload Supporting Photo</span>
-              <span class="text-xs font-medium text-slate-400 mt-1">Tap here to browse (Optional)</span>
+          <div id="up-def" class="flex flex-col items-center">
+            <div class="p-4 bg-white rounded-full shadow-sm border border-slate-100 mb-3 group-hover:scale-110 transition-transform">
+                <i data-lucide="camera" class="w-8 h-8 text-slate-300"></i>
             </div>
-            <div id="upload-success" class="hidden flex-col items-center text-emerald-600">
-              <div class="bg-emerald-100 p-3 rounded-full mb-3"><i data-lucide="check" class="w-6 h-6"></i></div>
-              <span class="text-sm font-bold">Photo Attached Successfully</span>
-              <span id="upload-filename" class="text-xs font-medium text-emerald-600/70 mt-1 truncate max-w-[200px]"></span>
-            </div>
+            <span class="text-sm font-bold text-slate-600 uppercase tracking-wide">Upload Supporting Photo</span>
+            <span class="text-xs font-medium text-slate-400 mt-1">Tap here to browse (Optional)</span>
+          </div>
+          <div id="up-ok" class="hidden text-emerald-600 text-center flex-col items-center">
+            <div class="p-4 bg-emerald-50 rounded-full mb-3"><i data-lucide="check" class="w-8 h-8"></i></div>
+            <span class="text-sm font-bold uppercase">Photo Attached Successfully</span>
+            <span id="up-name" class="text-xs font-medium text-emerald-400 mt-1 truncate max-w-[200px]"></span>
           </div>
         </div>
 
+        <!-- Submit Button -->
         <div class="pt-4">
-          <button type="submit" id="btn-submit" class="w-full flex items-center justify-center py-4 px-8 rounded-xl shadow-lg bg-slate-900 hover:bg-slate-800 hover:shadow-slate-900/20 active:scale-[0.99] transition-all">
-            <span id="btn-submit-text" class="text-white font-bold text-lg tracking-wide uppercase">Submit Report</span>
+          <button type="submit" id="btn-submit" class="w-full flex items-center justify-center py-4 bg-[#0A1931] hover:bg-slate-900 text-white font-black text-xl rounded-xl shadow-xl transition-all active:scale-[0.98] uppercase tracking-widest">
+            Submit Report
           </button>
-          
-          <div id="msg-success" class="hidden mt-4 p-4 bg-emerald-50 border border-emerald-100 rounded-xl text-center text-emerald-700 font-bold text-sm items-center justify-center">
-            <i data-lucide="check" class="w-4 h-4 mr-2"></i> Report submitted successfully. Thank you!
-          </div>
+          <p id="msg-ok" class="hidden mt-6 p-4 bg-emerald-50 border border-emerald-100 rounded-xl text-center text-emerald-700 font-bold text-sm">
+            <i data-lucide="check-circle" class="w-5 h-5 inline mr-2 -mt-0.5"></i> Report submitted successfully. Thank you!
+          </p>
         </div>
 
-        <div class="mt-8 pt-6 text-center border-t border-slate-100">
-          <div class="inline-flex items-center justify-center space-x-2 text-slate-500 mb-2">
-            <i data-lucide="shield-alert" class="w-4 h-4"></i>
-            <span class="text-sm font-bold tracking-wide uppercase">Secure & Anonymous</span>
+        <!-- Footer -->
+        <div class="mt-8 pt-8 text-center border-t border-slate-100">
+          <div class="inline-flex items-center justify-center space-x-2 text-slate-500 mb-3">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-blue-600"></i>
+            <span class="text-xs font-black tracking-widest uppercase">Secure & Anonymous</span>
           </div>
-          <p class="text-xs font-medium text-slate-400 mb-4">© 2026 Quality, Safety & Security Transwisata</p>
-          <button type="button" onclick="switchView('login')" class="inline-flex items-center text-[11px] font-bold text-slate-400 hover:text-slate-800 transition-colors uppercase">
+          <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">© 2026 Quality, Safety & Security Transwisata</p>
+          <button type="button" onclick="switchView('login')" class="inline-flex items-center text-[10px] font-black text-slate-300 hover:text-slate-600 transition-colors uppercase tracking-[0.2em]">
             <i data-lucide="lock" class="w-3 h-3 mr-1.5"></i> Admin Login
           </button>
         </div>
-
       </form>
     </div>
   </div>
 
   <!-- ==================== LOGIN VIEW ==================== -->
-  <div id="view-login" class="hidden min-h-screen py-12 px-4 flex items-center justify-center">
-    <div class="w-full max-w-md bg-white shadow-2xl shadow-slate-200/40 rounded-[24px] overflow-hidden border border-slate-100 p-8 text-center">
-      <button onclick="switchView('form')" class="flex items-center text-sm font-bold text-slate-500 hover:text-slate-800 mb-8 transition-colors">
+  <div id="view-login" class="hidden min-h-screen py-12 px-4 flex items-center justify-center bg-[#F8FAFC]">
+    <div class="w-full max-w-md bg-white shadow-2xl rounded-[24px] overflow-hidden border border-slate-100 p-8 text-center">
+      <button onclick="switchView('form')" class="flex items-center text-[11px] font-black text-slate-400 hover:text-slate-800 mb-8 transition-colors uppercase tracking-widest">
         <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back to Form
       </button>
-      <div class="inline-flex items-center justify-center p-3 bg-slate-900 rounded-2xl mb-4 shadow-lg shadow-slate-900/20">
-        <i data-lucide="lock" class="w-6 h-6 text-white"></i>
+      
+      <div class="inline-flex items-center justify-center p-4 bg-[#0A1931] rounded-2xl mb-4 shadow-lg">
+        <i data-lucide="lock" class="w-8 h-8 text-white"></i>
       </div>
-      <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Admin Login</h2>
-      <p class="text-sm font-medium text-slate-500 mt-1">Quality, Safety & Security Dept</p>
-      <form onsubmit="handleLogin(event)" class="space-y-5 mt-8 text-left">
+      <h2 class="text-2xl font-black text-slate-900 tracking-tight uppercase">Admin Login</h2>
+      <p class="text-xs font-bold text-slate-400 uppercase mt-1 tracking-widest">Quality, Safety & Security</p>
+
+      <form onsubmit="handleLogin(event)" class="space-y-5 mt-10 text-left">
         <div>
-          <label class="block text-sm font-bold text-slate-700 mb-2">Username</label>
+          <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-widest ml-1">Username</label>
           <input type="text" id="l-user" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none text-sm font-medium" required />
         </div>
         <div>
-          <label class="block text-sm font-bold text-slate-700 mb-2">Password</label>
+          <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-widest ml-1">Password</label>
           <input type="password" id="l-pass" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none text-sm font-medium" required />
         </div>
-        <p id="l-error" class="hidden text-sm font-bold text-rose-500 text-center">Username atau password salah</p>
-        <button type="submit" class="w-full flex items-center justify-center py-3.5 px-8 rounded-xl shadow-lg bg-slate-900 hover:bg-slate-800 active:scale-[0.99] transition-all mt-4">
-          <span class="text-white font-bold text-[15px] tracking-wide uppercase">Login</span>
+        <p id="l-err" class="hidden text-center text-rose-500 text-xs font-bold uppercase tracking-wide">Invalid Username or Password</p>
+        <button type="submit" class="w-full py-4 bg-[#0A1931] text-white font-black rounded-xl shadow-lg active:scale-[0.98] transition-all uppercase tracking-widest mt-4">
+          Login Account
         </button>
       </form>
     </div>
   </div>
 
   <!-- ==================== ADMIN DASHBOARD ==================== -->
-  <div id="view-admin" class="hidden min-h-screen py-8 px-4 sm:px-8 print:bg-white print:py-0 print:px-0">
-    <div class="max-w-4xl mx-auto print:max-w-full">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 space-y-4 sm:space-y-0 print:hidden">
+  <div id="view-admin" class="hidden min-h-screen py-8 px-4 sm:px-8">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex items-center justify-between mb-10 print:hidden">
         <div>
-          <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Admin Dashboard</h1>
-          <p class="text-sm font-medium text-slate-500 mt-1">Submitted Safety & Security Reports</p>
+          <h1 class="text-3xl font-black uppercase tracking-tight text-slate-900">Admin Dashboard</h1>
+          <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Transwisata Reporting System</p>
         </div>
-        <button onclick="handleLogout()" class="flex items-center justify-center px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 font-bold text-sm shadow-sm transition-all w-fit">
-          <i data-lucide="log-out" class="w-4 h-4 mr-2"></i> Logout
+        <button onclick="switchView('form')" class="px-6 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl font-black text-[10px] uppercase shadow-sm hover:bg-gray-50 transition-all tracking-widest flex items-center">
+            <i data-lucide="log-out" class="w-3.5 h-3.5 mr-2"></i> Logout
         </button>
       </div>
-      <div id="admin-list-container" class="print:hidden"></div>
+
+      <div id="admin-loader" class="text-center py-24 flex flex-col items-center">
+        <div class="w-12 h-12 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin mb-4"></div>
+        <span class="font-black text-slate-400 tracking-[0.3em] uppercase text-xs">Syncing Database...</span>
+      </div>
+
+      <div id="admin-list-container" class="space-y-8"></div>
     </div>
   </div>
 
-  <!-- ==================== MODAL DETAIL (ADMIN / PRINT) ==================== -->
-  <div id="view-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 print:static print:bg-white print:backdrop-blur-none print:p-0 print:block">
-    <div class="bg-white w-full max-w-2xl rounded-[24px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] print:shadow-none print:rounded-none print:max-h-none print:max-w-full print:border-none print:block">
+  <!-- ==================== MODAL DETAIL (PDF READY) ==================== -->
+  <div id="view-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 print:static print:p-0">
+    <div class="bg-white w-full max-w-2xl rounded-[32px] overflow-hidden flex flex-col max-h-[90vh] print:max-h-none print:rounded-none print:shadow-none shadow-2xl">
       
-      <!-- Modal Header (Sembunyi saat Print) -->
-      <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 print:hidden">
-        <div>
-          <h3 class="text-xl font-extrabold text-slate-900">Report Details</h3>
-          <p id="m-id" class="text-xs font-bold text-slate-500 mt-1 uppercase tracking-wider"></p>
-        </div>
-        <div class="flex items-center space-x-2">
-          <button onclick="window.print()" class="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 border border-slate-200 rounded-full bg-white transition-colors" title="Print to PDF">
-            <i data-lucide="printer" class="w-5 h-5"></i>
-          </button>
-          <button onclick="closeModal()" class="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200 rounded-full border border-slate-200 bg-white transition-colors">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
+      <!-- Modal Toolbar -->
+      <div class="p-6 border-b border-slate-100 flex items-center justify-between print:hidden">
+        <h3 class="font-black uppercase tracking-widest text-slate-800">Report Details</h3>
+        <div class="flex space-x-2">
+            <button onclick="window.print()" class="p-2.5 border rounded-full hover:bg-slate-50 transition-colors text-slate-500 hover:text-blue-600"><i data-lucide="printer" class="w-5 h-5"></i></button>
+            <button onclick="closeModal()" class="p-2.5 border rounded-full hover:bg-slate-50 transition-colors text-slate-500 hover:text-rose-600"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
       </div>
       
-      <!-- Header Khusus PDF (Hanya Muncul saat Print) -->
-      <div class="hidden print:flex flex-col items-center pt-8 pb-6 border-b-2 border-slate-900 mb-8 mx-8 text-center">
-        <!-- Logo Transwisata di PDF -->
-        <img src="https://lh3.googleusercontent.com/d/14rgNQMNWLMZw5A-BBysAlSrZM6i7x-j3" alt="Logo Transwisata" class="w-24 h-24 mb-4 object-contain" />
-        <h1 class="text-3xl font-extrabold text-slate-900 uppercase tracking-widest mb-1">Incident Report</h1>
-        <p class="text-sm font-bold text-slate-500 uppercase">Quality, Safety & Security Transwisata</p>
-        <p id="m-print-id" class="text-xs text-slate-400 mt-2 font-mono uppercase"></p>
-      </div>
-
-      <!-- Konten Modal / PDF -->
-      <div class="p-6 overflow-y-auto custom-scrollbar print:overflow-visible print:p-8">
-        <div class="grid grid-cols-2 gap-y-6 gap-x-4 mb-8">
-          <div>
-            <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Type of Report</p>
-            <p id="m-type" class="font-bold text-slate-800"></p>
+      <!-- PDF CONTENT -->
+      <div id="printable-area" class="overflow-y-auto p-8 custom-scrollbar print:overflow-visible">
+          <!-- Logo for PDF (Only visible on print) -->
+          <div class="hidden print:flex flex-col items-center pb-8 border-b-2 border-slate-900 mb-10 text-center">
+            <img src="https://lh3.googleusercontent.com/d/14rgNQMNWLMZw5A-BBysAlSrZM6i7x-j3" class="w-32 h-32 mb-4 object-contain" />
+            <h1 class="text-3xl font-black uppercase tracking-widest">INCIDENT REPORT</h1>
+            <p class="text-sm font-bold uppercase text-slate-600 mt-1">Quality, Safety & Security Department - Transwisata</p>
           </div>
-          <div>
-            <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Risk Level</p>
-            <div id="m-risk" class="inline-flex px-2.5 py-1 rounded-md text-xs font-bold uppercase"></div>
-          </div>
-          <div>
-            <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Date & Time</p>
-            <p id="m-date" class="font-bold text-slate-800"></p>
-          </div>
-          <div>
-            <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Location</p>
-            <p id="m-location" class="font-bold text-slate-800 font-mono text-sm uppercase"></p>
-          </div>
-        </div>
-        
-        <div class="mb-8">
-          <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Description of Incident</p>
-          <div id="m-desc" class="bg-slate-50 p-5 rounded-xl border border-slate-100 text-slate-700 font-medium text-[15px] whitespace-pre-wrap leading-relaxed print:bg-white print:border-slate-300 print:rounded-none"></div>
-        </div>
-
-        <div id="m-photo-container" class="hidden print:break-inside-avoid">
-          <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Attached Photo</p>
-          <div class="rounded-xl overflow-hidden border border-slate-100 bg-slate-50 flex justify-center p-2 print:border-none print:bg-white print:p-0 print:justify-start">
-            <img id="m-photo" src="" alt="Report attachment" class="max-w-full max-h-[300px] print:max-h-[450px] object-contain rounded-lg print:rounded-none" />
-          </div>
-        </div>
-        
-        <!-- Footer Khusus PDF -->
-        <div class="hidden print:flex justify-between items-end mt-16 pt-8 border-t border-slate-200">
-          <div><p id="m-print-time" class="text-[10px] text-slate-400"></p></div>
-          <div class="text-center w-48 flex flex-col items-center">
-            <p class="text-[10px] font-bold text-slate-400 uppercase mb-12">Authorized Signature</p>
-            <div class="w-full border-b border-slate-900"></div>
-            <p class="text-[10px] font-bold text-slate-600 mt-1 uppercase">QSS Department</p>
-          </div>
-        </div>
+          
+          <div id="modal-content"></div>
       </div>
     </div>
   </div>
 
-  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <!-- ==================== SCRIPTS ==================== -->
   <script>
     lucide.createIcons();
-
+    
     let reportState = { safety: false, security: false, improvement: false };
     let selectedRisk = '';
     let photoBase64 = '';
-    let localReports = JSON.parse(localStorage.getItem('safetyReports')) || [];
+    let fetchedReports = [];
 
+    // Navigation and Splash
     window.addEventListener('DOMContentLoaded', () => {
       const splash = document.getElementById('view-splash');
-      setTimeout(() => { splash.classList.remove('opacity-0'); splash.classList.add('opacity-100'); }, 100);
-      setTimeout(() => { splash.classList.remove('opacity-100'); splash.classList.add('opacity-0'); }, 2500);
-      setTimeout(() => { splash.classList.add('hidden'); document.getElementById('view-form').classList.remove('hidden'); }, 3000);
+      setTimeout(() => splash.classList.add('opacity-100'), 100);
+      setTimeout(() => splash.classList.remove('opacity-100'), 2500);
+      setTimeout(() => { 
+        splash.classList.add('hidden'); 
+        document.getElementById('view-form').classList.remove('hidden'); 
+      }, 3200);
     });
 
-    function switchView(viewName) {
+    function switchView(v) {
       document.getElementById('view-form').classList.add('hidden');
       document.getElementById('view-login').classList.add('hidden');
       document.getElementById('view-admin').classList.add('hidden');
-      document.getElementById('view-' + viewName).classList.remove('hidden');
-      if(viewName === 'admin') renderAdminList();
+      document.getElementById('view-' + v).classList.remove('hidden');
+      if(v === 'admin') fetchFromGoogle();
     }
 
-    function toggleReportType(type) {
-      reportState[type] = !reportState[type];
-      const btn = document.getElementById('btn-' + type);
-      const check = btn.querySelector('.check-icon');
-      if (reportState[type]) {
-        btn.classList.remove('grayscale', 'opacity-60');
-        btn.classList.add('grayscale-0', 'opacity-100', 'scale-105');
-        check.classList.remove('hidden');
-      } else {
-        btn.classList.add('grayscale', 'opacity-60');
-        btn.classList.remove('grayscale-0', 'opacity-100', 'scale-105');
-        check.classList.add('hidden');
-      }
+    function toggleReportType(t) {
+      reportState[t] = !reportState[t];
+      const btn = document.getElementById('btn-' + t);
+      btn.classList.toggle('grayscale', !reportState[t]);
+      btn.classList.toggle('opacity-60', !reportState[t]);
+      btn.classList.toggle('scale-105', reportState[t]);
+      btn.querySelector('.check-icon').classList.toggle('hidden', !reportState[t]);
     }
-
-    function setRisk(level) { selectedRisk = level; }
 
     function handlePhoto(e) {
       const file = e.target.files[0];
       if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          photoBase64 = event.target.result;
-          document.getElementById('upload-default').classList.add('hidden');
-          const successBox = document.getElementById('upload-success');
-          successBox.classList.remove('hidden');
-          successBox.classList.add('flex');
-          document.getElementById('upload-filename').textContent = file.name;
-          const box = document.getElementById('upload-box');
-          box.classList.remove('border-slate-300', 'bg-slate-50');
-          box.classList.add('border-emerald-300', 'bg-emerald-50');
+        const r = new FileReader();
+        r.onload = (ev) => {
+          photoBase64 = ev.target.result;
+          document.getElementById('up-def').classList.add('hidden');
+          document.getElementById('up-ok').classList.remove('hidden');
+          document.getElementById('up-name').innerText = file.name;
         };
-        reader.readAsDataURL(file);
+        r.readAsDataURL(file);
       }
     }
 
     document.getElementById('reportForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const activeTypes = [];
-      if(reportState.safety) activeTypes.push('Safety Report');
-      if(reportState.security) activeTypes.push('Security Report');
-      if(reportState.improvement) activeTypes.push('Improvement Report');
-      if (activeTypes.length === 0) { alert("Mohon pilih minimal satu Tipe Laporan!"); return; }
-      if (!selectedRisk) { alert("Mohon pilih Risk Level!"); return; }
+      const active = Object.keys(reportState).filter(k => reportState[k]).map(k => k.toUpperCase() + ' REPORT');
+      
+      if(!active.length) return alert("Please select at least one Type of Report!");
+      if(!selectedRisk) return alert("Please select a Risk Level!");
 
-      const dateTime = document.getElementById('f-dateTime').value;
-      const location = document.getElementById('f-location').value;
-      const description = document.getElementById('f-description').value;
+      const btn = document.getElementById('btn-submit');
+      const originalText = btn.innerText;
+      btn.innerText = "SENDING REPORT...";
+      btn.disabled = true;
 
       const payload = {
-        id: Date.now(),
-        reportTypes: activeTypes.join(', '),
-        dateTime: dateTime,
-        location: location,
-        description: description,
+        id: "TWA-" + Math.random().toString(36).substr(2, 6).toUpperCase(),
+        reportTypes: active.join(', '),
+        dateTime: document.getElementById('f-dateTime').value,
+        location: document.getElementById('f-location').value,
+        description: document.getElementById('f-description').value,
         riskLevel: selectedRisk,
         photo: photoBase64
       };
 
-      const btnSubmit = document.getElementById('btn-submit');
-      const btnText = document.getElementById('btn-submit-text');
-      btnSubmit.classList.add('bg-slate-400', 'cursor-not-allowed');
-      btnText.innerHTML = '<i data-lucide="upload" class="w-5 h-5 mr-2 animate-bounce inline"></i> SUBMITTING...';
-      lucide.createIcons();
-
-      setTimeout(() => {
-        localReports.unshift(payload);
-        localStorage.setItem('safetyReports', JSON.stringify(localReports));
-        this.reset();
-        selectedRisk = '';
+      fetch(scriptURL, { method: 'POST', body: JSON.stringify(payload) })
+      .then(() => {
+        this.reset(); 
+        btn.innerText = originalText; btn.disabled = false;
+        document.getElementById('msg-ok').classList.remove('hidden');
+        
+        // Reset Custom States
+        reportState = { safety: false, security: false, improvement: false };
+        ['safety', 'security', 'improvement'].forEach(key => {
+            const b = document.getElementById('btn-' + key);
+            b.classList.add('grayscale', 'opacity-60');
+            b.classList.remove('scale-105');
+            b.querySelector('.check-icon').classList.add('hidden');
+        });
+        document.getElementById('up-def').classList.remove('hidden');
+        document.getElementById('up-ok').classList.add('hidden');
         photoBase64 = '';
-        ['safety', 'security', 'improvement'].forEach(t => { if(reportState[t]) toggleReportType(t); });
-        document.getElementById('upload-default').classList.remove('hidden');
-        document.getElementById('upload-success').classList.add('hidden');
-        document.getElementById('upload-box').className = 'border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all';
-        btnSubmit.classList.remove('bg-slate-400', 'cursor-not-allowed');
-        btnText.innerHTML = 'SUBMIT REPORT';
-        const msg = document.getElementById('msg-success');
-        msg.classList.remove('hidden'); msg.classList.add('flex');
-        setTimeout(() => { msg.classList.remove('flex'); msg.classList.add('hidden'); }, 5000);
-      }, 1000);
+        
+        setTimeout(() => document.getElementById('msg-ok').classList.add('hidden'), 5000);
+      })
+      .catch(() => {
+          alert("Error connecting to database. Please check your connection.");
+          btn.innerText = originalText; btn.disabled = false;
+      });
     });
 
     function handleLogin(e) {
       e.preventDefault();
-      if (document.getElementById('l-user').value === 'qssmanager@pt-twa.co.id' && document.getElementById('l-pass').value === 'admin0') {
-        document.getElementById('l-error').classList.add('hidden');
-        switchView('admin');
-      } else { document.getElementById('l-error').classList.remove('hidden'); }
+      if(document.getElementById('l-user').value === 'qssmanager@pt-twa.co.id' && document.getElementById('l-pass').value === 'admin0') {
+          document.getElementById('l-err').classList.add('hidden');
+          switchView('admin');
+      } else {
+          document.getElementById('l-err').classList.remove('hidden');
+      }
     }
 
-    function handleLogout() { switchView('form'); }
-
-    function renderAdminList() {
+    function fetchFromGoogle() {
       const container = document.getElementById('admin-list-container');
-      if (localReports.length === 0) {
-        container.innerHTML = `<div class="bg-white shadow-xl rounded-[24px] p-16 text-center text-slate-500 font-medium flex flex-col items-center"><i data-lucide="file-text" class="w-16 h-16 mb-4 text-slate-200"></i>Belum ada laporan yang masuk.</div>`;
-        lucide.createIcons(); return;
-      }
-      const grouped = localReports.reduce((acc, r) => {
-        const date = new Date(r.dateTime);
-        const monthYear = date.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
-        if (!acc[monthYear]) acc[monthYear] = [];
-        acc[monthYear].push(r); return acc;
+      const loader = document.getElementById('admin-loader');
+      container.innerHTML = "";
+      loader.classList.remove('hidden');
+
+      fetch(scriptURL)
+      .then(res => res.json())
+      .then(data => {
+        fetchedReports = data;
+        loader.classList.add('hidden');
+        renderList(data);
+      })
+      .catch(() => {
+        loader.innerText = "COULD NOT LOAD DATABASE. CHECK SCRIPT URL.";
+        loader.classList.remove('animate-pulse');
+      });
+    }
+
+    function renderList(reports) {
+      const container = document.getElementById('admin-list-container');
+      if(!reports.length) return container.innerHTML = "<p class='text-center py-24 text-slate-400 font-bold uppercase tracking-widest'>Database is empty</p>";
+      
+      const grouped = reports.reduce((acc, r) => {
+        const d = new Date(r.dateTime);
+        const my = d.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
+        if(!acc[my]) acc[my] = [];
+        acc[my].push(r); return acc;
       }, {});
 
-      let html = '';
-      for (const [monthYear, reports] of Object.entries(grouped)) {
-        html += `<div class="mb-8"><h3 class="text-sm font-extrabold text-slate-400 uppercase tracking-widest mb-3 ml-2 flex items-center"><i data-lucide="clock" class="w-4 h-4 mr-2"></i> ${monthYear}</h3><div class="bg-white shadow-xl rounded-[24px] overflow-hidden border border-slate-100"><div class="divide-y divide-slate-100">`;
-        reports.forEach(r => {
-          const riskColor = r.riskLevel === 'high' ? 'bg-rose-100 text-rose-700' : r.riskLevel === 'medium' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700';
-          const dateStr = new Date(r.dateTime).toLocaleString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
-          html += `<div onclick="openModal(${r.id})" class="p-5 sm:p-6 hover:bg-slate-50 cursor-pointer transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div class="flex-1"><div class="flex flex-wrap items-center gap-2 sm:space-x-3 mb-2"><span class="px-2.5 py-1 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wider rounded-md">${r.reportTypes}</span><span class="flex items-center text-xs font-bold text-slate-400"><i data-lucide="clock" class="w-3.5 h-3.5 mr-1"></i> ${dateStr}</span></div><p class="font-bold text-slate-800 text-[15px] line-clamp-1 uppercase">${r.description}</p><p class="flex items-center text-sm font-medium text-slate-500 mt-1.5 uppercase font-mono"><i data-lucide="map-pin" class="w-4 h-4 mr-1 text-slate-400"></i> ${r.location}</p></div><div class="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto mt-2 sm:mt-0"><div class="px-3 py-1 rounded-full text-xs font-bold flex items-center border ${riskColor} uppercase font-sans"><i data-lucide="alert-circle" class="w-3.5 h-3.5 mr-1.5"></i> ${r.riskLevel} RISK</div><i data-lucide="chevron-right" class="w-5 h-5 text-slate-300"></i></div></div>`;
+      let html = "";
+      for (const [my, items] of Object.entries(grouped)) {
+        html += `<h4 class="text-[10px] font-black text-slate-400 mb-4 mt-12 uppercase tracking-[0.4em] ml-2 flex items-center"><i data-lucide="calendar" class="w-3.5 h-3.5 mr-2"></i> ${my}</h4><div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden divide-y divide-slate-100">`;
+        items.forEach(r => {
+          const color = r.riskLevel === 'high' ? 'bg-rose-600' : r.riskLevel === 'medium' ? 'bg-amber-500' : 'bg-green-600';
+          html += `<div onclick="openDetail('${r.id}')" class="p-6 hover:bg-slate-50 cursor-pointer flex items-center justify-between transition-all group">
+            <div class="flex-1 min-w-0 mr-6">
+                <div class="flex items-center space-x-2 mb-2">
+                    <span class="text-[9px] font-black bg-slate-900 text-white px-2 py-0.5 rounded-md uppercase tracking-tighter">${r.reportTypes}</span>
+                    <span class="text-[10px] text-slate-400 font-bold uppercase font-mono">${new Date(r.dateTime).toLocaleDateString('id-ID')}</span>
+                </div>
+                <p class="font-black text-slate-800 truncate uppercase text-sm group-hover:text-blue-600 transition-colors">${r.description}</p>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1.5 flex items-center"><i data-lucide="map-pin" class="w-3 h-3 mr-1"></i> ${r.location}</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="${color} text-white text-[9px] font-black px-4 py-1 rounded-full uppercase tracking-widest shadow-sm">${r.riskLevel}</div>
+                <i data-lucide="chevron-right" class="w-5 h-5 text-slate-300 group-hover:text-slate-500 group-hover:translate-x-1 transition-all"></i>
+            </div>
+          </div>`;
         });
-        html += `</div></div></div>`;
+        html += `</div>`;
       }
-      container.innerHTML = html; lucide.createIcons();
+      container.innerHTML = html; 
+      lucide.createIcons();
     }
 
-    function openModal(id) {
-      const report = localReports.find(r => r.id === id);
-      if(!report) return;
-      document.getElementById('m-id').textContent = `ID: ${report.id}`;
-      document.getElementById('m-print-id').textContent = `Report ID: ${report.id}`;
-      document.getElementById('m-type').textContent = report.reportTypes;
-      const riskEl = document.getElementById('m-risk');
-      riskEl.textContent = report.riskLevel + ' RISK';
-      riskEl.className = 'inline-flex px-2.5 py-1 rounded-md text-xs font-bold uppercase ' + (report.riskLevel === 'high' ? 'bg-rose-100 text-rose-700' : report.riskLevel === 'medium' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700');
-      document.getElementById('m-date').textContent = new Date(report.dateTime).toLocaleString('id-ID');
-      document.getElementById('m-location').textContent = report.location;
-      document.getElementById('m-desc').textContent = report.description;
-      document.getElementById('m-print-time').textContent = `Generated on: ${new Date().toLocaleString('id-ID')}`;
-      const photoContainer = document.getElementById('m-photo-container');
-      const photoEl = document.getElementById('m-photo');
-      if(report.photo) { photoEl.src = report.photo; photoContainer.classList.remove('hidden'); } else { photoEl.src = ''; photoContainer.classList.add('hidden'); }
-      document.getElementById('view-modal').classList.remove('hidden'); document.body.classList.add('overflow-hidden');
+    function openDetail(id) {
+      const r = fetchedReports.find(x => x.id === id);
+      const colorClass = r.riskLevel === 'high' ? 'text-rose-600' : r.riskLevel === 'medium' ? 'text-amber-600' : 'text-green-600';
+      const colorBg = r.riskLevel === 'high' ? 'bg-rose-50' : r.riskLevel === 'medium' ? 'bg-amber-50' : 'bg-green-50';
+
+      document.getElementById('modal-content').innerHTML = `
+        <div class="grid grid-cols-2 gap-y-8 gap-x-6 mb-12 text-[11px]">
+            <div><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Report ID</p><p class="font-black text-slate-900 font-mono text-sm">${r.id}</p></div>
+            <div><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Risk Level</p><span class="font-black ${colorClass} ${colorBg} px-3 py-1 rounded-lg uppercase tracking-tighter text-sm">${r.riskLevel} RISK</span></div>
+            <div><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Event Date</p><p class="font-bold text-slate-800 text-sm uppercase">${new Date(r.dateTime).toLocaleString('id-ID')}</p></div>
+            <div><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Location</p><p class="font-bold text-slate-800 uppercase font-mono text-sm">${r.location}</p></div>
+            <div class="col-span-2"><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Type of Report</p><p class="font-black text-slate-900 uppercase text-sm">${r.reportTypes}</p></div>
+        </div>
+        <div class="mb-12">
+            <p class="text-slate-400 font-black text-[10px] uppercase mb-4 tracking-widest">Incident Description</p>
+            <div class="bg-slate-50 p-6 rounded-[20px] text-[15px] border border-slate-100 font-medium leading-relaxed text-slate-700 whitespace-pre-wrap">${r.description}</div>
+        </div>
+        ${r.photo && r.photo !== 'Tidak ada foto' ? `<div class="mb-12"><p class="text-slate-400 font-black text-[10px] uppercase mb-4 tracking-widest">Attached Photo Evidence</p><div class="rounded-[24px] overflow-hidden border-2 border-slate-100"><img src="${r.photo}" class="w-full h-auto object-cover" /></div></div>` : ''}
+        
+        <!-- SIGNATURE AREA FOR PDF -->
+        <div class="hidden print:flex justify-between items-end mt-40 pt-8 border-t border-slate-300">
+          <p class="text-[9px] text-slate-400 uppercase font-mono tracking-tighter">System Generated Report: ${new Date().toLocaleString('id-ID')}</p>
+          <div class="text-center w-56">
+            <p class="text-[10px] font-black mb-20 uppercase tracking-[0.2em] text-slate-500">Authorized Signature</p>
+            <div class="border-b-2 w-full border-slate-900"></div>
+            <p class="text-[11px] font-black text-slate-900 mt-3 uppercase tracking-widest">QSS Transwisata Manager</p>
+          </div>
+        </div>
+      `;
+      document.getElementById('view-modal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      lucide.createIcons();
     }
 
-    function closeModal() { document.getElementById('view-modal').classList.add('hidden'); document.body.classList.remove('overflow-hidden'); }
+    function closeModal() {
+      document.getElementById('view-modal').classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
   </script>
 </body>
 </html>
