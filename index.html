@@ -15,6 +15,15 @@
     .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* Animasi Loading */
+    .loading-pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .5; }
+    }
   </style>
 </head>
 <body class="bg-[#F8FAFC] font-sans text-slate-800 antialiased selection:bg-slate-200">
@@ -42,13 +51,21 @@
       <!-- Header -->
       <div class="px-8 pt-12 pb-8 text-center bg-white flex flex-col items-center">
         
-        <!-- Logo dari Google Drive -->
-        <div class="relative inline-flex items-center justify-center w-36 h-36 mb-4 drop-shadow-[0_10px_15px_rgba(0,0,0,0.15)] hover:scale-105 transition-transform duration-500">
+        <!-- Logo Container dengan Perbaikan Direct Link Google Drive -->
+        <div class="relative inline-flex items-center justify-center w-40 h-40 mb-4 transition-transform duration-500 hover:scale-105">
+          <!-- Placeholder saat gambar sedang loading -->
+          <div id="logo-loading" class="absolute inset-0 bg-slate-100 rounded-2xl flex items-center justify-center loading-pulse">
+            <i data-lucide="image" class="w-8 h-8 text-slate-300"></i>
+          </div>
+          
+          <!-- Menggunakan link lh3.googleusercontent.com yang lebih stabil untuk Drive -->
           <img 
-            src="https://drive.google.com/uc?export=view&id=1ng-eSPCnsJHFXCU2wFA7ryH9e1X4A00S" 
-            alt="Logo QSS" 
-            class="w-full h-full object-contain"
-            onerror="this.onerror=null; this.src='https://placehold.co/150x150/0A1931/FFF?text=Logo+Gagal+Dimuat';" 
+            id="main-logo"
+            src="https://lh3.googleusercontent.com/d/14rgNQMNWLMZw5A-BBysAlSrZM6i7x-j3" 
+            alt="Logo Say Something" 
+            class="w-full h-full object-contain relative z-10 opacity-0 transition-opacity duration-500"
+            onload="this.classList.remove('opacity-0'); document.getElementById('logo-loading').classList.add('hidden');"
+            onerror="this.onerror=null; this.src='https://placehold.co/200x200/0A1931/C5A866?text=LOGO+QSS';" 
           />
         </div>
 
@@ -85,7 +102,7 @@
                 </div>
               </div>
               <div class="absolute -bottom-4 z-30 w-[115%] bg-gradient-to-b from-[#22c55e] to-[#15803d] border-[1.5px] border-slate-200 rounded shadow-lg py-1 flex flex-col items-center">
-                 <span class="text-white font-black text-[11px] md:text-[14px] leading-none drop-shadow-md tracking-wider whitespace-nowrap">SAFETY</span>
+                 <span class="text-white font-black text-[11px] md:text-[14px] leading-none drop-shadow-md tracking-wider whitespace-nowrap uppercase">SAFETY</span>
                  <span class="text-white font-extrabold text-[8px] md:text-[10px] leading-none drop-shadow-md mt-0.5">REPORT</span>
               </div>
             </button>
@@ -106,7 +123,7 @@
                 </div>
               </div>
               <div class="absolute -bottom-4 z-30 w-[115%] bg-gradient-to-b from-[#ef4444] to-[#b91c1c] border-[1.5px] border-slate-200 rounded shadow-lg py-1 flex flex-col items-center">
-                 <span class="text-white font-black text-[11px] md:text-[14px] leading-none drop-shadow-md tracking-wider whitespace-nowrap">SECURITY</span>
+                 <span class="text-white font-black text-[11px] md:text-[14px] leading-none drop-shadow-md tracking-wider whitespace-nowrap uppercase">SECURITY</span>
                  <span class="text-white font-extrabold text-[8px] md:text-[10px] leading-none drop-shadow-md mt-0.5">REPORT</span>
               </div>
             </button>
@@ -124,7 +141,7 @@
                 </div>
               </div>
               <div class="absolute -bottom-4 z-30 w-[120%] bg-gradient-to-b from-[#3b82f6] to-[#1d4ed8] border-[1.5px] border-slate-200 rounded shadow-lg py-1 flex flex-col items-center">
-                 <span class="text-white font-black text-[9px] md:text-[12px] leading-none drop-shadow-md tracking-wider whitespace-nowrap">IMPROVEMENT</span>
+                 <span class="text-white font-black text-[9px] md:text-[12px] leading-none drop-shadow-md tracking-wider whitespace-nowrap uppercase">IMPROVEMENT</span>
                  <span class="text-white font-extrabold text-[7px] md:text-[9px] leading-none drop-shadow-md mt-0.5">REPORT</span>
               </div>
             </button>
@@ -261,7 +278,6 @@
           </button>
         </div>
       </div>
-      <!-- Report List Area -->
       <div id="admin-list-container" class="print:hidden"></div>
     </div>
   </div>
@@ -270,7 +286,6 @@
   <div id="view-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 print:static print:bg-white print:backdrop-blur-none print:p-0 print:block">
     <div class="bg-white w-full max-w-2xl rounded-[24px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] print:shadow-none print:rounded-none print:max-h-none print:max-w-full print:border-none print:block">
       
-      <!-- Modal Header (Hidden in Print) -->
       <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 print:hidden">
         <div>
           <h3 class="text-xl font-extrabold text-slate-900">Report Details</h3>
@@ -286,14 +301,12 @@
         </div>
       </div>
       
-      <!-- Print Only Header -->
       <div class="hidden print:block text-center pt-8 pb-6 border-b-2 border-slate-900 mb-8 mx-8">
         <h1 class="text-3xl font-extrabold text-slate-900 uppercase tracking-widest mb-1">Incident Report</h1>
         <p class="text-sm font-bold text-slate-500 uppercase">Quality, Safety & Security Transwisata</p>
         <p id="m-print-id" class="text-xs text-slate-400 mt-2"></p>
       </div>
 
-      <!-- Modal Content -->
       <div class="p-6 overflow-y-auto custom-scrollbar print:overflow-visible print:p-8">
         <div class="grid grid-cols-2 gap-y-6 gap-x-4 mb-6">
           <div>
@@ -324,7 +337,6 @@
           </div>
         </div>
         
-        <!-- Print Only Footer -->
         <div class="hidden print:flex justify-between items-end mt-16 pt-8 border-t border-slate-200">
           <div><p id="m-print-time" class="text-xs text-slate-400"></p></div>
           <div class="text-center w-48">
@@ -462,45 +474,56 @@
       btnText.innerHTML = '<i data-lucide="upload" class="w-5 h-5 mr-2 animate-bounce inline"></i> SUBMITTING...';
       lucide.createIcons();
 
-      // Simulate network request
-      setTimeout(() => {
-        // Save to localStorage
-        localReports.unshift(payload);
-        localStorage.setItem('safetyReports', JSON.stringify(localReports));
+      // GANTI URL INI DENGAN URL WEB APP GOOGLE SCRIPT ANDA JIKA INGIN AKTIF
+      const scriptURL = ''; // MASUKKAN_URL_GOOGLE_SCRIPT_DI_SINI
 
-        // Reset Form
-        this.reset();
-        selectedRisk = '';
-        photoBase64 = '';
-        
-        // Reset 3D Badge buttons to grey
-        ['safety', 'security', 'improvement'].forEach(t => {
-          if(reportState[t]) toggleReportType(t);
-        });
+      const finishSubmit = () => {
+          localReports.unshift(payload);
+          localStorage.setItem('safetyReports', JSON.stringify(localReports));
 
-        document.getElementById('upload-default').classList.remove('hidden');
-        const successBox = document.getElementById('upload-success');
-        successBox.classList.add('hidden');
-        successBox.classList.remove('flex');
-        const box = document.getElementById('upload-box');
-        box.classList.add('border-slate-300', 'bg-slate-50');
-        box.classList.remove('border-emerald-300', 'bg-emerald-50');
+          this.reset();
+          selectedRisk = '';
+          photoBase64 = '';
+          
+          ['safety', 'security', 'improvement'].forEach(t => {
+            if(reportState[t]) toggleReportType(t);
+          });
 
-        // Reset Button
-        btnSubmit.classList.remove('bg-slate-400', 'cursor-not-allowed', 'shadow-none');
-        btnSubmit.classList.add('bg-slate-900', 'hover:bg-slate-800');
-        btnText.innerHTML = 'SUBMIT REPORT';
+          document.getElementById('upload-default').classList.remove('hidden');
+          const successBox = document.getElementById('upload-success');
+          successBox.classList.add('hidden');
+          successBox.classList.remove('flex');
+          const box = document.getElementById('upload-box');
+          box.classList.add('border-slate-300', 'bg-slate-50');
+          box.classList.remove('border-emerald-300', 'bg-emerald-50');
 
-        // Show Success Msg
-        const msg = document.getElementById('msg-success');
-        msg.classList.remove('hidden');
-        msg.classList.add('flex');
-        setTimeout(() => {
-          msg.classList.remove('flex');
-          msg.classList.add('hidden');
-        }, 5000);
+          btnSubmit.classList.remove('bg-slate-400', 'cursor-not-allowed', 'shadow-none');
+          btnSubmit.classList.add('bg-slate-900', 'hover:bg-slate-800');
+          btnText.innerHTML = 'SUBMIT REPORT';
 
-      }, 1000);
+          const msg = document.getElementById('msg-success');
+          msg.classList.remove('hidden');
+          msg.classList.add('flex');
+          setTimeout(() => {
+            msg.classList.remove('flex');
+            msg.classList.add('hidden');
+          }, 5000);
+      };
+
+      if (scriptURL === '') {
+          setTimeout(finishSubmit, 1000);
+      } else {
+          fetch(scriptURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload)
+          })
+          .then(() => finishSubmit())
+          .catch(() => {
+              alert("Gagal mengirim ke Google Sheets, tapi tersimpan di Admin Lokal.");
+              finishSubmit();
+          });
+      }
     });
 
     // --- LOGIN LOGIC ---
