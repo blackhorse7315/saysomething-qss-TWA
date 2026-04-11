@@ -1,327 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Say Something - Safety Report</title>
-  <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons via CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <style>
-    /* Custom Scrollbar */
     .custom-scrollbar::-webkit-scrollbar { width: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-
-    /* Animasi Loading */
-    .loading-pulse { animation: pulse 2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
-
-    /* Print Optimization */
-    @media print {
-      body { background-color: white !important; }
-      .print-hide { display: none !important; }
-      @page { margin: 1cm; }
-    }
+    @media print { body { background-color: white !important; } .print-hidden { display: none !important; } @page { margin: 1cm; } }
+    .type-btn { transition: all 0.3s ease; }
+    .type-btn:active { transform: scale(0.95); }
   </style>
 </head>
-<body class="bg-[#F8FAFC] font-sans text-slate-800 antialiased selection:bg-slate-200">
+<body class="bg-[#F3F4F6] font-sans text-slate-800 antialiased selection:bg-slate-200">
 
-  <!-- URL WEB APP GOOGLE SCRIPT -->
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyDs_wxsZI0NG3HDUWAceSHgBwR2SDP_Xy96Xl1F5VDJ5qLpwVREtceluDI1UxpKimz/exec';
+    // URL DATABASE TERBARU
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyOeGnJEVkkRGlpgWC6fuyaH4kZLJrpuIeLr9D8B5UzC4-xHAxtphQgtm8kDDFU6DlY/exec';
   </script>
 
-  <!-- ==================== SPLASH SCREEN ==================== -->
-  <div id="view-splash" class="fixed inset-0 z-50 bg-[#0A1931] flex flex-col items-center justify-center overflow-hidden transition-opacity duration-700 opacity-0 pointer-events-none">
-    <div class="absolute w-[300px] h-[300px] border border-white/5 rounded-full"></div>
-    <div class="absolute w-[500px] h-[500px] border border-white/5 rounded-full"></div>
-    
-    <div class="z-10 flex flex-col items-center text-center px-6">
+  <!-- SPLASH SCREEN -->
+  <div id="view-splash" class="fixed inset-0 z-[100] bg-[#0A1931] flex flex-col items-center justify-center transition-opacity duration-700 opacity-0 pointer-events-none">
+    <div class="z-10 text-center px-6">
       <p class="text-[#C5A866] text-xs font-bold tracking-[0.3em] mb-4 uppercase">Welcome To</p>
-      <h1 class="text-white text-5xl md:text-6xl font-serif mb-3 tracking-tight">Say Something</h1>
-      <p class="text-blue-100/70 text-sm mb-8 font-light tracking-wide uppercase">Application</p>
-      <div class="w-32 h-[1px] bg-[#C5A866]/60 mb-8 mx-auto"></div>
-      <p class="text-[#C5A866] text-[10px] font-bold tracking-[0.2em] mb-3 uppercase">Quality, Safety & Security Department</p>
+      <h1 class="text-white text-5xl font-serif mb-3 italic">Say Something</h1>
+      <div class="w-32 h-[1px] bg-[#C5A866]/60 mx-auto mb-8"></div>
+      <p class="text-[#C5A866] text-[10px] font-bold tracking-[0.2em] mb-3 uppercase">Quality, Safety & Security Dept</p>
       <p class="text-slate-300 text-xl font-serif italic">Transwisata</p>
     </div>
   </div>
 
-  <!-- ==================== MAIN FORM VIEW ==================== -->
-  <div id="view-form" class="hidden min-h-screen py-12 px-4 flex flex-col items-center justify-center">
-    <div class="w-full max-w-2xl bg-white shadow-2xl shadow-slate-200/40 rounded-[24px] overflow-hidden border border-slate-100">
+  <!-- MAIN FORM VIEW -->
+  <div id="view-form" class="hidden min-h-screen py-10 px-4 flex flex-col items-center justify-center">
+    <div class="w-full max-w-2xl bg-white shadow-2xl rounded-[32px] overflow-hidden border border-slate-100">
       
-      <!-- Header -->
       <div class="px-8 pt-12 pb-8 text-center bg-white flex flex-col items-center">
-        <!-- Main Logo Crest -->
-        <div class="relative w-40 h-40 mb-6 drop-shadow-2xl transition-transform duration-500 hover:scale-105">
-          <img src="https://lh3.googleusercontent.com/d/14rgNQMNWLMZw5A-BBysAlSrZM6i7x-j3" alt="Transwisata Logo" class="w-full h-full object-contain" />
+        <div class="relative w-32 h-32 mb-6 drop-shadow-xl">
+          <img src="https://lh3.googleusercontent.com/d/14rgNQMNWLMZw5A-BBysAlSrZM6i7x-j3" alt="Logo" class="w-full h-full object-contain" />
         </div>
-
-        <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-2 uppercase">Say Something</h1>
+        <h1 class="text-4xl font-extrabold text-[#0F172A] tracking-tight mb-2 uppercase">Say Something</h1>
         <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Safety Report System</h2>
-        
-        <p class="text-slate-500 italic text-base leading-relaxed max-w-[90%] mx-auto">
-          "If You See Something, Say Something. If You Hear Something, Say Something."
-        </p>
+        <p class="text-slate-500 italic text-[15px] max-w-[80%] mx-auto">"If You See Something, Say Something. If You Hear Something, Say Something."</p>
       </div>
 
-      <!-- Form Body -->
-      <form id="reportForm" class="px-8 pb-10 space-y-10">
-        
-        <!-- Type of Report (3D Badges) -->
+      <form id="reportForm" class="px-8 pb-12 space-y-10">
+        <!-- Type of Report (Referencing Image styles) -->
         <div>
-          <label class="block text-sm font-bold text-slate-900 mb-8 uppercase tracking-wider">Type of Report <span class="text-rose-500">*</span></label>
-          <div class="grid grid-cols-3 gap-2 md:gap-4 justify-items-center">
+          <label class="block text-[13px] font-bold text-slate-800 mb-8 uppercase tracking-widest">Type of Report <span class="text-rose-500">*</span></label>
+          <div class="grid grid-cols-3 gap-2 justify-items-center">
             
             <!-- SAFETY -->
-            <button type="button" id="btn-safety" onclick="toggleReportType('safety')" class="type-btn relative flex flex-col items-center justify-center p-1 mb-6 transition-all duration-300 transform outline-none grayscale opacity-60">
-              <div class="check-icon hidden absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-emerald-500 border-2 border-white rounded-full p-1 shadow-lg z-40 text-white">
-                 <i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 stroke-[4]"></i>
-              </div>
-              <div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-b from-slate-200 to-slate-400 p-1 shadow-lg">
-                <div class="w-full h-full rounded-full border-2 border-white bg-gradient-to-b from-[#14532d] to-[#064e3b] overflow-hidden relative flex items-center justify-center">
-                  <div class="flex flex-col items-center">
-                    <i data-lucide="hard-hat" class="w-6 h-6 md:w-8 md:h-8 text-white/40 mb-1"></i>
-                    <i data-lucide="shield-check" class="w-8 h-8 md:w-10 md:h-10 text-emerald-400 drop-shadow-md fill-emerald-900"></i>
-                  </div>
+            <button type="button" id="btn-safety" onclick="toggleReportType('safety')" class="type-btn relative flex flex-col items-center p-1 mb-6 grayscale opacity-60">
+              <div class="check-icon hidden absolute -top-1 -right-1 bg-emerald-500 border-2 border-white rounded-full p-0.5 z-40 text-white"><i data-lucide="check" class="w-3 h-3 stroke-[4]"></i></div>
+              <div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-b from-slate-100 to-slate-300 p-1 shadow-md">
+                <div class="w-full h-full rounded-full border-2 border-white bg-gradient-to-b from-slate-400 to-slate-600 flex items-center justify-center">
+                    <div class="flex flex-col items-center">
+                        <i data-lucide="hard-hat" class="w-6 h-6 md:w-8 md:h-8 text-white/50 mb-0.5"></i>
+                        <i data-lucide="shield-check" class="w-8 h-8 md:w-10 md:h-10 text-white"></i>
+                    </div>
                 </div>
               </div>
-              <div class="absolute -bottom-4 z-30 w-[115%] bg-gradient-to-b from-[#22c55e] to-[#15803d] border border-white rounded shadow-lg py-1 flex flex-col items-center">
-                 <span class="text-white font-black text-[9px] md:text-[11px] leading-none drop-shadow-md tracking-wider">SAFETY</span>
-                 <span class="text-white font-extrabold text-[7px] md:text-[8px] leading-none mt-0.5 uppercase">Report</span>
+              <div id="ribbon-safety" class="absolute -bottom-4 z-30 w-[115%] bg-slate-400 border border-white rounded shadow-lg py-1 text-center transition-colors">
+                 <span class="text-white font-black text-[9px] md:text-[11px] leading-none tracking-widest uppercase">SAFETY</span>
+                 <p class="text-white font-bold text-[7px] md:text-[8px] leading-none uppercase">Report</p>
               </div>
             </button>
 
             <!-- SECURITY -->
-            <button type="button" id="btn-security" onclick="toggleReportType('security')" class="type-btn relative flex flex-col items-center justify-center p-1 mb-6 transition-all duration-300 transform outline-none grayscale opacity-60">
-              <div class="check-icon hidden absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-blue-500 border-2 border-white rounded-full p-1 shadow-lg z-40 text-white">
-                 <i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 stroke-[4]"></i>
-              </div>
-              <div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-b from-slate-200 to-slate-400 p-1 shadow-lg">
-                <div class="w-full h-full rounded-full border-2 border-white bg-gradient-to-b from-[#7f1d1d] to-[#450a0a] overflow-hidden relative flex items-center justify-center">
+            <button type="button" id="btn-security" onclick="toggleReportType('security')" class="type-btn relative flex flex-col items-center p-1 mb-6 grayscale opacity-60">
+              <div class="check-icon hidden absolute -top-1 -right-1 bg-rose-600 border-2 border-white rounded-full p-0.5 z-40 text-white"><i data-lucide="check" class="w-3 h-3 stroke-[4]"></i></div>
+              <div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-b from-slate-100 to-slate-300 p-1 shadow-md">
+                <div class="w-full h-full rounded-full border-2 border-white bg-gradient-to-b from-slate-400 to-slate-600 flex items-center justify-center">
                     <div class="flex flex-col items-center">
-                        <i data-lucide="cctv" class="w-6 h-6 md:w-8 md:h-8 text-white/40 mb-1"></i>
-                        <i data-lucide="lock" class="w-8 h-8 md:w-10 md:h-10 text-rose-400 drop-shadow-md fill-rose-900"></i>
+                        <i data-lucide="cctv" class="w-6 h-6 md:w-8 md:h-8 text-white/50 mb-0.5"></i>
+                        <i data-lucide="lock" class="w-8 h-8 md:w-10 md:h-10 text-white"></i>
                     </div>
                 </div>
               </div>
-              <div class="absolute -bottom-4 z-30 w-[115%] bg-gradient-to-b from-[#ef4444] to-[#b91c1c] border border-white rounded shadow-lg py-1 flex flex-col items-center">
-                 <span class="text-white font-black text-[9px] md:text-[11px] leading-none drop-shadow-md tracking-wider">SECURITY</span>
-                 <span class="text-white font-extrabold text-[7px] md:text-[8px] leading-none mt-0.5 uppercase">Report</span>
+              <div id="ribbon-security" class="absolute -bottom-4 z-30 w-[115%] bg-slate-400 border border-white rounded shadow-lg py-1 text-center transition-colors">
+                 <span class="text-white font-black text-[9px] md:text-[11px] leading-none tracking-widest uppercase">SECURITY</span>
+                 <p class="text-white font-bold text-[7px] md:text-[8px] leading-none uppercase">Report</p>
               </div>
             </button>
 
             <!-- IMPROVEMENT -->
-            <button type="button" id="btn-improvement" onclick="toggleReportType('improvement')" class="type-btn relative flex flex-col items-center justify-center p-1 mb-6 transition-all duration-300 transform outline-none grayscale opacity-60">
-              <div class="check-icon hidden absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-amber-500 border-2 border-white rounded-full p-1 shadow-lg z-40 text-white">
-                 <i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 stroke-[4]"></i>
-              </div>
-              <div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-b from-slate-200 to-slate-400 p-1 shadow-lg">
-                <div class="w-full h-full rounded-full border-2 border-white bg-gradient-to-b from-[#1e3a8a] to-[#172554] overflow-hidden relative flex items-center justify-center">
+            <button type="button" id="btn-improvement" onclick="toggleReportType('improvement')" class="type-btn relative flex flex-col items-center p-1 mb-6 grayscale opacity-60">
+              <div class="check-icon hidden absolute -top-1 -right-1 bg-blue-600 border-2 border-white rounded-full p-0.5 z-40 text-white"><i data-lucide="check" class="w-3 h-3 stroke-[4]"></i></div>
+              <div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-b from-slate-100 to-slate-300 p-1 shadow-md">
+                <div class="w-full h-full rounded-full border-2 border-white bg-gradient-to-b from-slate-400 to-slate-600 flex items-center justify-center">
                     <div class="flex flex-col items-center">
-                        <i data-lucide="trending-up" class="w-6 h-6 md:w-8 md:h-8 text-white/40 mb-1"></i>
-                        <i data-lucide="bar-chart-3" class="w-8 h-8 md:w-10 md:h-10 text-blue-400 drop-shadow-md fill-[#1e40af]"></i>
+                        <i data-lucide="trending-up" class="w-6 h-6 md:w-8 md:h-8 text-white/50 mb-0.5"></i>
+                        <i data-lucide="bar-chart-3" class="w-8 h-8 md:w-10 md:h-10 text-white"></i>
                     </div>
                 </div>
               </div>
-              <div class="absolute -bottom-4 z-30 w-[120%] bg-gradient-to-b from-[#3b82f6] to-[#1d4ed8] border border-white rounded shadow-lg py-1 flex flex-col items-center">
-                 <span class="text-white font-black text-[8px] md:text-[10px] leading-none drop-shadow-md tracking-wider">IMPROVEMENT</span>
-                 <span class="text-white font-extrabold text-[7px] md:text-[8px] leading-none mt-0.5 uppercase">Report</span>
+              <div id="ribbon-improvement" class="absolute -bottom-4 z-30 w-[120%] bg-slate-400 border border-white rounded shadow-lg py-1 text-center transition-colors">
+                 <span class="text-white font-black text-[8px] md:text-[10px] leading-none tracking-widest uppercase">IMPROVEMENT</span>
+                 <p class="text-white font-bold text-[7px] md:text-[8px] leading-none uppercase">Report</p>
               </div>
             </button>
-
           </div>
         </div>
 
-        <!-- Form Fields -->
-        <div class="space-y-6 pt-4">
+        <!-- Input Fields with Icons (Referencing Images) -->
+        <div class="space-y-8 pt-4">
           <div>
-            <label class="flex items-center text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
-              <i data-lucide="clock" class="w-4 h-4 mr-2 text-blue-500"></i> Date & Time <span class="text-rose-500 ml-1 font-black">*</span>
+            <label class="flex items-center text-[13px] font-bold text-slate-700 mb-3 uppercase tracking-wide">
+              <i data-lucide="clock" class="w-4 h-4 mr-2 text-blue-500"></i> Date & Time <span class="text-rose-500 ml-1">*</span>
             </label>
-            <input type="datetime-local" id="f-dateTime" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none transition-all text-sm font-medium" required />
+            <input type="datetime-local" id="f-dateTime" class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl outline-none" required />
           </div>
 
           <div>
-            <label class="flex items-center text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
-              <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-blue-500"></i> Location <span class="text-rose-500 ml-1 font-black">*</span>
+            <label class="flex items-center text-[13px] font-bold text-slate-700 mb-3 uppercase tracking-wide">
+              <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-blue-500"></i> Location <span class="text-rose-500 ml-1">*</span>
             </label>
-            <input type="text" id="f-location" placeholder="E.g., Lobby Area, Floor 3" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none transition-all text-sm font-medium" required />
+            <input type="text" id="f-location" placeholder="E.g., Lobby Area, Floor 3" class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl outline-none" required />
           </div>
 
           <div>
-            <label class="flex items-center text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
-              <i data-lucide="file-text" class="w-4 h-4 mr-2 text-blue-500"></i> Description of Incident <span class="text-rose-500 ml-1 font-black">*</span>
+            <label class="flex items-center text-[13px] font-bold text-slate-700 mb-3 uppercase tracking-wide">
+              <i data-lucide="file-text" class="w-4 h-4 mr-2 text-blue-500"></i> Description of Incident <span class="text-rose-500 ml-1">*</span>
             </label>
-            <textarea id="f-description" placeholder="Please describe what you saw or heard..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl h-32 resize-none focus:ring-2 focus:ring-slate-900 outline-none transition-all text-sm font-medium leading-relaxed" required></textarea>
+            <textarea id="f-description" placeholder="Please describe what you saw or heard..." class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl h-32 outline-none resize-none" required></textarea>
           </div>
 
-          <!-- Risk Level -->
           <div>
-            <label class="flex items-center text-sm font-bold text-slate-700 mb-3 uppercase tracking-wide">
-              <i data-lucide="alert-circle" class="w-4 h-4 mr-2 text-blue-500"></i> Risk Level <span class="text-rose-500 ml-1 font-black">*</span>
+            <label class="flex items-center text-[13px] font-bold text-slate-700 mb-4 uppercase tracking-wide">
+              <i data-lucide="alert-circle" class="w-4 h-4 mr-2 text-blue-500"></i> Risk Level <span class="text-rose-500 ml-1">*</span>
             </label>
             <div class="grid grid-cols-3 gap-3">
               <label class="relative cursor-pointer">
                 <input type="radio" name="riskLevel" value="low" class="peer sr-only" onchange="selectedRisk='low'" />
-                <div class="text-center py-2.5 rounded-xl border border-slate-200 bg-white text-[12px] font-bold text-slate-400 peer-checked:bg-emerald-500 peer-checked:text-white peer-checked:border-emerald-600 transition-all uppercase">Low Risk</div>
+                <div class="text-center py-3 rounded-2xl border border-slate-200 bg-white text-[11px] font-bold text-slate-400 peer-checked:bg-emerald-500 peer-checked:text-white uppercase tracking-widest">Low Risk</div>
               </label>
               <label class="relative cursor-pointer">
                 <input type="radio" name="riskLevel" value="medium" class="peer sr-only" onchange="selectedRisk='medium'" />
-                <div class="text-center py-2.5 rounded-xl border border-slate-200 bg-white text-[12px] font-bold text-slate-400 peer-checked:bg-amber-500 peer-checked:text-white peer-checked:border-amber-600 transition-all uppercase">Medium Risk</div>
+                <div class="text-center py-3 rounded-2xl border border-slate-200 bg-white text-[11px] font-bold text-slate-400 peer-checked:bg-amber-500 peer-checked:text-white uppercase tracking-widest">Medium Risk</div>
               </label>
               <label class="relative cursor-pointer">
                 <input type="radio" name="riskLevel" value="high" class="peer sr-only" onchange="selectedRisk='high'" />
-                <div class="text-center py-2.5 rounded-xl border border-slate-200 bg-white text-[12px] font-bold text-slate-400 peer-checked:bg-rose-600 peer-checked:text-white peer-checked:border-rose-700 transition-all uppercase">High Risk</div>
+                <div class="text-center py-3 rounded-2xl border border-slate-200 bg-white text-[11px] font-bold text-slate-400 peer-checked:bg-rose-600 peer-checked:text-white uppercase tracking-widest">High Risk</div>
               </label>
             </div>
           </div>
         </div>
 
-        <hr class="border-slate-100" />
-
-        <!-- Upload Section -->
-        <div onclick="document.getElementById('f-photo').click()" id="upload-box" class="group border-2 border-dashed border-slate-200 bg-slate-50/50 hover:bg-slate-50 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all">
+        <div onclick="document.getElementById('f-photo').click()" id="upload-box" class="border-2 border-dashed border-slate-200 bg-slate-50 rounded-[24px] p-10 flex flex-col items-center justify-center cursor-pointer hover:bg-slate-100 transition-all">
           <input type="file" id="f-photo" accept="image/*" class="hidden" onchange="handlePhoto(event)" />
           <div id="up-def" class="flex flex-col items-center">
-            <div class="p-4 bg-white rounded-full shadow-sm border border-slate-100 mb-3 group-hover:scale-110 transition-transform">
-                <i data-lucide="camera" class="w-8 h-8 text-slate-300"></i>
-            </div>
-            <span class="text-sm font-bold text-slate-600 uppercase tracking-wide">Upload Supporting Photo</span>
-            <span class="text-xs font-medium text-slate-400 mt-1">Tap here to browse (Optional)</span>
+            <i data-lucide="camera" class="w-10 h-10 text-slate-300 mb-3"></i>
+            <span class="text-[13px] font-bold text-slate-600 uppercase tracking-widest">Upload Supporting Photo</span>
+            <span class="text-[10px] font-medium text-slate-400 mt-1">Tap here to browse (Optional)</span>
           </div>
-          <div id="up-ok" class="hidden text-emerald-600 text-center flex-col items-center">
-            <div class="p-4 bg-emerald-50 rounded-full mb-3"><i data-lucide="check" class="w-8 h-8"></i></div>
-            <span class="text-sm font-bold uppercase">Photo Attached Successfully</span>
-            <span id="up-name" class="text-xs font-medium text-emerald-400 mt-1 truncate max-w-[200px]"></span>
+          <div id="up-ok" class="hidden text-emerald-600 flex-col items-center">
+            <i data-lucide="check-circle" class="w-10 h-10 mb-2"></i>
+            <span class="text-xs font-black uppercase tracking-widest">Photo Ready</span>
+            <span id="up-name" class="text-[10px] truncate max-w-[200px]"></span>
           </div>
         </div>
 
-        <!-- Submit Button -->
-        <div class="pt-4">
-          <button type="submit" id="btn-submit" class="w-full flex items-center justify-center py-4 bg-[#0A1931] hover:bg-slate-900 text-white font-black text-xl rounded-xl shadow-xl transition-all active:scale-[0.98] uppercase tracking-widest">
-            Submit Report
-          </button>
-          <p id="msg-ok" class="hidden mt-6 p-4 bg-emerald-50 border border-emerald-100 rounded-xl text-center text-emerald-700 font-bold text-sm">
-            <i data-lucide="check-circle" class="w-5 h-5 inline mr-2 -mt-0.5"></i> Report submitted successfully. Thank you!
-          </p>
+        <div class="pt-6">
+          <button type="submit" id="btn-submit" class="w-full flex items-center justify-center py-5 bg-[#0A1931] hover:bg-slate-900 text-white font-black text-xl rounded-2xl shadow-xl transition-all active:scale-[0.98] uppercase tracking-[0.2em]">Submit Report</button>
+          <p id="msg-ok" class="hidden mt-6 p-4 bg-emerald-50 border border-emerald-100 rounded-2xl text-center text-emerald-700 font-bold text-sm">✅ Report Submitted Successfully!</p>
         </div>
 
-        <!-- Footer -->
-        <div class="mt-8 pt-8 text-center border-t border-slate-100">
-          <div class="inline-flex items-center justify-center space-x-2 text-slate-500 mb-3">
-            <i data-lucide="shield-alert" class="w-4 h-4 text-blue-600"></i>
-            <span class="text-xs font-black tracking-widest uppercase">Secure & Anonymous</span>
-          </div>
-          <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">© 2026 Quality, Safety & Security Transwisata</p>
-          <button type="button" onclick="switchView('login')" class="inline-flex items-center text-[10px] font-black text-slate-300 hover:text-slate-600 transition-colors uppercase tracking-[0.2em]">
-            <i data-lucide="lock" class="w-3 h-3 mr-1.5"></i> Admin Login
-          </button>
+        <div class="text-center pt-10 border-t border-slate-50">
+          <div class="inline-flex items-center justify-center space-x-2 text-slate-400 mb-4"><i data-lucide="shield-alert" class="w-4 h-4"></i><span class="text-[11px] font-black uppercase">Secure & Anonymous</span></div>
+          <p class="text-[10px] font-bold text-slate-300 uppercase tracking-widest mb-6">© 2026 Quality, Safety & Security Transwisata</p>
+          <button type="button" onclick="switchView('login')" class="text-[10px] font-black text-slate-300 hover:text-blue-500 transition-colors uppercase tracking-[0.3em] flex items-center mx-auto"><i data-lucide="lock" class="w-3 h-3 mr-1.5"></i> Admin Login</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- ==================== LOGIN VIEW ==================== -->
-  <div id="view-login" class="hidden min-h-screen py-12 px-4 flex items-center justify-center bg-[#F8FAFC]">
-    <div class="w-full max-w-md bg-white shadow-2xl rounded-[24px] overflow-hidden border border-slate-100 p-8 text-center">
-      <button onclick="switchView('form')" class="flex items-center text-[11px] font-black text-slate-400 hover:text-slate-800 mb-8 transition-colors uppercase tracking-widest">
-        <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back to Form
-      </button>
-      
-      <div class="inline-flex items-center justify-center p-4 bg-[#0A1931] rounded-2xl mb-4 shadow-lg">
-        <i data-lucide="lock" class="w-8 h-8 text-white"></i>
-      </div>
+  <!-- ADMIN LOGIN VIEW -->
+  <div id="view-login" class="hidden min-h-screen py-12 px-4 flex items-center justify-center">
+    <div class="w-full max-w-md bg-white shadow-2xl rounded-[32px] p-10 text-center border border-slate-50">
+      <button onclick="switchView('form')" class="flex items-center text-[10px] font-black text-slate-400 hover:text-slate-800 mb-10 transition-colors uppercase"><i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back</button>
+      <div class="inline-flex items-center justify-center p-4 bg-[#0A1931] rounded-2xl mb-4 shadow-lg"><i data-lucide="lock" class="w-8 h-8 text-white"></i></div>
       <h2 class="text-2xl font-black text-slate-900 tracking-tight uppercase">Admin Login</h2>
-      <p class="text-xs font-bold text-slate-400 uppercase mt-1 tracking-widest">Quality, Safety & Security</p>
-
       <form onsubmit="handleLogin(event)" class="space-y-5 mt-10 text-left">
-        <div>
-          <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-widest ml-1">Username</label>
-          <input type="text" id="l-user" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none text-sm font-medium" required />
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-widest ml-1">Password</label>
-          <input type="password" id="l-pass" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none text-sm font-medium" required />
-        </div>
-        <p id="l-err" class="hidden text-center text-rose-500 text-xs font-bold uppercase tracking-wide">Invalid Username or Password</p>
-        <button type="submit" class="w-full py-4 bg-[#0A1931] text-white font-black rounded-xl shadow-lg active:scale-[0.98] transition-all uppercase tracking-widest mt-4">
-          Login Account
-        </button>
+        <input type="text" id="l-user" placeholder="USERNAME" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none" required />
+        <input type="password" id="l-pass" placeholder="PASSWORD" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none" required />
+        <p id="l-err" class="hidden text-center text-rose-500 text-[10px] font-black uppercase">Invalid Credentials</p>
+        <button type="submit" class="w-full py-4 bg-[#0A1931] text-white font-black rounded-2xl shadow-lg active:scale-[0.98] uppercase">Authorize Access</button>
       </form>
     </div>
   </div>
 
-  <!-- ==================== ADMIN DASHBOARD ==================== -->
+  <!-- ADMIN DASHBOARD -->
   <div id="view-admin" class="hidden min-h-screen py-8 px-4 sm:px-8">
     <div class="max-w-4xl mx-auto">
       <div class="flex items-center justify-between mb-10 print:hidden">
-        <div>
-          <h1 class="text-3xl font-black uppercase tracking-tight text-slate-900">Admin Dashboard</h1>
-          <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Transwisata Reporting System</p>
-        </div>
-        <button onclick="switchView('form')" class="px-6 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl font-black text-[10px] uppercase shadow-sm hover:bg-gray-50 transition-all tracking-widest flex items-center">
-            <i data-lucide="log-out" class="w-3.5 h-3.5 mr-2"></i> Logout
-        </button>
+        <div><h1 class="text-3xl font-black uppercase tracking-tight text-slate-900">Database</h1><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">QSS Reporting Center</p></div>
+        <button onclick="switchView('form')" class="px-6 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl font-black text-[10px] uppercase shadow-sm flex items-center"><i data-lucide="log-out" class="w-3.5 h-3.5 mr-2"></i> Logout</button>
       </div>
-
       <div id="admin-loader" class="text-center py-24 flex flex-col items-center">
-        <div class="w-12 h-12 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin mb-4"></div>
-        <span class="font-black text-slate-400 tracking-[0.3em] uppercase text-xs">Syncing Database...</span>
+        <div class="w-10 h-10 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin mb-4"></div>
+        <span class="font-black text-slate-400 tracking-[0.3em] uppercase text-xs">Syncing with Google Sheets...</span>
       </div>
-
-      <div id="admin-list-container" class="space-y-8"></div>
+      <div id="admin-list-container" class="space-y-10"></div>
     </div>
   </div>
 
-  <!-- ==================== MODAL DETAIL (PDF READY) ==================== -->
-  <div id="view-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 print:static print:p-0">
-    <div class="bg-white w-full max-w-2xl rounded-[32px] overflow-hidden flex flex-col max-h-[90vh] print:max-h-none print:rounded-none print:shadow-none shadow-2xl">
-      
-      <!-- Modal Toolbar -->
+  <!-- MODAL DETAIL -->
+  <div id="view-modal" class="hidden fixed inset-0 z-[110] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 print:static print:p-0">
+    <div class="bg-white w-full max-w-2xl rounded-[40px] overflow-hidden flex flex-col max-h-[90vh] print:max-h-none print:rounded-none">
       <div class="p-6 border-b border-slate-100 flex items-center justify-between print:hidden">
-        <h3 class="font-black uppercase tracking-widest text-slate-800">Report Details</h3>
+        <h3 class="font-black uppercase tracking-widest text-slate-800 text-sm">Detail</h3>
         <div class="flex space-x-2">
-            <button onclick="window.print()" class="p-2.5 border rounded-full hover:bg-slate-50 transition-colors text-slate-500 hover:text-blue-600"><i data-lucide="printer" class="w-5 h-5"></i></button>
-            <button onclick="closeModal()" class="p-2.5 border rounded-full hover:bg-slate-50 transition-colors text-slate-500 hover:text-rose-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <button onclick="window.print()" class="p-2.5 border rounded-full hover:bg-slate-50"><i data-lucide="printer" class="w-5 h-5 text-slate-500"></i></button>
+            <button onclick="closeModal()" class="p-2.5 border rounded-full hover:bg-slate-50"><i data-lucide="x" class="w-5 h-5 text-slate-500"></i></button>
         </div>
       </div>
-      
-      <!-- PDF CONTENT -->
-      <div id="printable-area" class="overflow-y-auto p-8 custom-scrollbar print:overflow-visible">
-          <!-- Logo for PDF (Only visible on print) -->
-          <div class="hidden print:flex flex-col items-center pb-8 border-b-2 border-slate-900 mb-10 text-center">
+      <div class="overflow-y-auto p-10 print:overflow-visible">
+          <div class="hidden print:flex flex-col items-center pb-10 border-b-2 border-slate-900 mb-10 text-center">
             <img src="https://lh3.googleusercontent.com/d/14rgNQMNWLMZw5A-BBysAlSrZM6i7x-j3" class="w-32 h-32 mb-4 object-contain" />
             <h1 class="text-3xl font-black uppercase tracking-widest">INCIDENT REPORT</h1>
-            <p class="text-sm font-bold uppercase text-slate-600 mt-1">Quality, Safety & Security Department - Transwisata</p>
+            <p class="text-sm font-bold uppercase text-slate-600 mt-2">Quality, Safety & Security - Transwisata</p>
           </div>
-          
           <div id="modal-content"></div>
       </div>
     </div>
   </div>
 
-  <!-- ==================== SCRIPTS ==================== -->
   <script>
     lucide.createIcons();
-    
     let reportState = { safety: false, security: false, improvement: false };
     let selectedRisk = '';
     let photoBase64 = '';
     let fetchedReports = [];
 
-    // Navigation and Splash
     window.addEventListener('DOMContentLoaded', () => {
       const splash = document.getElementById('view-splash');
       setTimeout(() => splash.classList.add('opacity-100'), 100);
       setTimeout(() => splash.classList.remove('opacity-100'), 2500);
-      setTimeout(() => { 
-        splash.classList.add('hidden'); 
-        document.getElementById('view-form').classList.remove('hidden'); 
-      }, 3200);
+      setTimeout(() => { splash.classList.add('hidden'); document.getElementById('view-form').classList.remove('hidden'); }, 3200);
     });
 
     function switchView(v) {
@@ -335,10 +254,19 @@
     function toggleReportType(t) {
       reportState[t] = !reportState[t];
       const btn = document.getElementById('btn-' + t);
-      btn.classList.toggle('grayscale', !reportState[t]);
-      btn.classList.toggle('opacity-60', !reportState[t]);
-      btn.classList.toggle('scale-105', reportState[t]);
-      btn.querySelector('.check-icon').classList.toggle('hidden', !reportState[t]);
+      const rib = document.getElementById('ribbon-' + t);
+      const cols = { safety: 'bg-emerald-500', security: 'bg-rose-600', improvement: 'bg-blue-600' };
+      if (reportState[t]) {
+        btn.classList.remove('grayscale', 'opacity-60');
+        btn.classList.add('scale-105');
+        rib.classList.replace('bg-slate-400', cols[t]);
+        btn.querySelector('.check-icon').classList.remove('hidden');
+      } else {
+        btn.classList.add('grayscale', 'opacity-60');
+        btn.classList.remove('scale-105');
+        rib.classList.replace(cols[t], 'bg-slate-400');
+        btn.querySelector('.check-icon').classList.add('hidden');
+      }
     }
 
     function handlePhoto(e) {
@@ -349,6 +277,7 @@
           photoBase64 = ev.target.result;
           document.getElementById('up-def').classList.add('hidden');
           document.getElementById('up-ok').classList.remove('hidden');
+          document.getElementById('up-ok').classList.add('flex');
           document.getElementById('up-name').innerText = file.name;
         };
         r.readAsDataURL(file);
@@ -358,13 +287,10 @@
     document.getElementById('reportForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const active = Object.keys(reportState).filter(k => reportState[k]).map(k => k.toUpperCase() + ' REPORT');
-      
-      if(!active.length) return alert("Please select at least one Type of Report!");
-      if(!selectedRisk) return alert("Please select a Risk Level!");
+      if(!active.length || !selectedRisk) return alert("Please select Report Type and Risk Level!");
 
       const btn = document.getElementById('btn-submit');
-      const originalText = btn.innerText;
-      btn.innerText = "SENDING REPORT...";
+      btn.innerText = "SENDING...";
       btn.disabled = true;
 
       const payload = {
@@ -377,65 +303,41 @@
         photo: photoBase64
       };
 
-      fetch(scriptURL, { method: 'POST', body: JSON.stringify(payload) })
+      fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
       .then(() => {
-        this.reset(); 
-        btn.innerText = originalText; btn.disabled = false;
-        document.getElementById('msg-ok').classList.remove('hidden');
-        
-        // Reset Custom States
-        reportState = { safety: false, security: false, improvement: false };
-        ['safety', 'security', 'improvement'].forEach(key => {
-            const b = document.getElementById('btn-' + key);
-            b.classList.add('grayscale', 'opacity-60');
-            b.classList.remove('scale-105');
-            b.querySelector('.check-icon').classList.add('hidden');
-        });
-        document.getElementById('up-def').classList.remove('hidden');
-        document.getElementById('up-ok').classList.add('hidden');
-        photoBase64 = '';
-        
-        setTimeout(() => document.getElementById('msg-ok').classList.add('hidden'), 5000);
+        alert("Report Submitted Successfully!");
+        location.reload(); 
       })
       .catch(() => {
-          alert("Error connecting to database. Please check your connection.");
-          btn.innerText = originalText; btn.disabled = false;
+          alert("Database Error. Please check your connection.");
+          btn.innerText = "SUBMIT REPORT"; btn.disabled = false;
       });
     });
 
     function handleLogin(e) {
       e.preventDefault();
-      if(document.getElementById('l-user').value === 'qssmanager@pt-twa.co.id' && document.getElementById('l-pass').value === 'admin0') {
-          document.getElementById('l-err').classList.add('hidden');
-          switchView('admin');
-      } else {
-          document.getElementById('l-err').classList.remove('hidden');
-      }
+      if(document.getElementById('l-user').value === 'qssmanager@pt-twa.co.id' && document.getElementById('l-pass').value === 'admin0') switchView('admin');
+      else document.getElementById('l-err').classList.remove('hidden');
     }
 
     function fetchFromGoogle() {
-      const container = document.getElementById('admin-list-container');
-      const loader = document.getElementById('admin-loader');
-      container.innerHTML = "";
-      loader.classList.remove('hidden');
-
-      fetch(scriptURL)
-      .then(res => res.json())
-      .then(data => {
-        fetchedReports = data;
-        loader.classList.add('hidden');
-        renderList(data);
-      })
-      .catch(() => {
-        loader.innerText = "COULD NOT LOAD DATABASE. CHECK SCRIPT URL.";
-        loader.classList.remove('animate-pulse');
-      });
+        const container = document.getElementById('admin-list-container');
+        const loader = document.getElementById('admin-loader');
+        loader.classList.remove('hidden');
+        container.innerHTML = "";
+        fetch(scriptURL, { method: 'GET' })
+        .then(res => res.json())
+        .then(data => {
+            fetchedReports = data;
+            loader.classList.add('hidden');
+            renderList(data);
+        })
+        .catch(() => { loader.innerText = "DATABASE ERROR: URL SCRIPT TIDAK DAPAT DIAKSES."; });
     }
 
     function renderList(reports) {
       const container = document.getElementById('admin-list-container');
-      if(!reports.length) return container.innerHTML = "<p class='text-center py-24 text-slate-400 font-bold uppercase tracking-widest'>Database is empty</p>";
-      
+      if(!reports.length) return container.innerHTML = "<p class='text-center py-20 text-slate-400 font-bold'>EMPTY</p>";
       const grouped = reports.reduce((acc, r) => {
         const d = new Date(r.dateTime);
         const my = d.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
@@ -445,68 +347,55 @@
 
       let html = "";
       for (const [my, items] of Object.entries(grouped)) {
-        html += `<h4 class="text-[10px] font-black text-slate-400 mb-4 mt-12 uppercase tracking-[0.4em] ml-2 flex items-center"><i data-lucide="calendar" class="w-3.5 h-3.5 mr-2"></i> ${my}</h4><div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden divide-y divide-slate-100">`;
+        html += `<h4 class="text-[10px] font-black text-slate-400 mb-4 mt-10 uppercase tracking-widest ml-2">${my}</h4><div class="bg-white rounded-[32px] shadow-xl border border-slate-50 overflow-hidden divide-y divide-slate-50">`;
         items.forEach(r => {
-          const color = r.riskLevel === 'high' ? 'bg-rose-600' : r.riskLevel === 'medium' ? 'bg-amber-500' : 'bg-green-600';
-          html += `<div onclick="openDetail('${r.id}')" class="p-6 hover:bg-slate-50 cursor-pointer flex items-center justify-between transition-all group">
-            <div class="flex-1 min-w-0 mr-6">
-                <div class="flex items-center space-x-2 mb-2">
-                    <span class="text-[9px] font-black bg-slate-900 text-white px-2 py-0.5 rounded-md uppercase tracking-tighter">${r.reportTypes}</span>
-                    <span class="text-[10px] text-slate-400 font-bold uppercase font-mono">${new Date(r.dateTime).toLocaleDateString('id-ID')}</span>
+          const color = r.riskLevel === 'high' ? 'bg-rose-600' : r.riskLevel === 'medium' ? 'bg-amber-500' : 'bg-emerald-600';
+          html += `<div onclick="openDetail('${r.id}')" class="p-8 hover:bg-slate-50 cursor-pointer flex items-center justify-between">
+            <div class="flex-1 min-w-0 mr-8">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="text-[9px] font-black bg-slate-900 text-white px-3 py-1 rounded-md uppercase tracking-tighter">${r.reportTypes}</span>
+                    <span class="text-[11px] text-slate-400 font-bold">${new Date(r.dateTime).toLocaleDateString('id-ID')}</span>
                 </div>
-                <p class="font-black text-slate-800 truncate uppercase text-sm group-hover:text-blue-600 transition-colors">${r.description}</p>
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1.5 flex items-center"><i data-lucide="map-pin" class="w-3 h-3 mr-1"></i> ${r.location}</p>
+                <p class="font-black text-slate-800 truncate uppercase text-base">${r.description}</p>
+                <p class="text-[11px] font-bold text-slate-400 uppercase mt-1 flex items-center"><i data-lucide="map-pin" class="w-3 h-3 mr-1.5"></i> ${r.location}</p>
             </div>
-            <div class="flex items-center space-x-4">
-                <div class="${color} text-white text-[9px] font-black px-4 py-1 rounded-full uppercase tracking-widest shadow-sm">${r.riskLevel}</div>
-                <i data-lucide="chevron-right" class="w-5 h-5 text-slate-300 group-hover:text-slate-500 group-hover:translate-x-1 transition-all"></i>
+            <div class="flex items-center space-x-6">
+                <div class="${color} text-white text-[10px] font-black px-5 py-1.5 rounded-full uppercase">${r.riskLevel}</div>
+                <i data-lucide="chevron-right" class="w-6 h-6 text-slate-300"></i>
             </div>
           </div>`;
         });
         html += `</div>`;
       }
-      container.innerHTML = html; 
-      lucide.createIcons();
+      container.innerHTML = html; lucide.createIcons();
     }
 
     function openDetail(id) {
       const r = fetchedReports.find(x => x.id === id);
-      const colorClass = r.riskLevel === 'high' ? 'text-rose-600' : r.riskLevel === 'medium' ? 'text-amber-600' : 'text-green-600';
-      const colorBg = r.riskLevel === 'high' ? 'bg-rose-50' : r.riskLevel === 'medium' ? 'bg-amber-50' : 'bg-green-50';
-
+      const col = r.riskLevel === 'high' ? 'text-rose-600' : r.riskLevel === 'medium' ? 'text-amber-600' : 'text-green-600';
       document.getElementById('modal-content').innerHTML = `
-        <div class="grid grid-cols-2 gap-y-8 gap-x-6 mb-12 text-[11px]">
-            <div><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Report ID</p><p class="font-black text-slate-900 font-mono text-sm">${r.id}</p></div>
-            <div><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Risk Level</p><span class="font-black ${colorClass} ${colorBg} px-3 py-1 rounded-lg uppercase tracking-tighter text-sm">${r.riskLevel} RISK</span></div>
+        <div class="grid grid-cols-2 gap-y-10 gap-x-8 mb-14 text-[11px]">
+            <div><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Report ID</p><p class="font-black text-slate-900 text-base uppercase">${r.id}</p></div>
+            <div><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Risk Level</p><span class="font-black ${col} uppercase text-sm">${r.riskLevel} RISK</span></div>
             <div><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Event Date</p><p class="font-bold text-slate-800 text-sm uppercase">${new Date(r.dateTime).toLocaleString('id-ID')}</p></div>
-            <div><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Location</p><p class="font-bold text-slate-800 uppercase font-mono text-sm">${r.location}</p></div>
-            <div class="col-span-2"><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Type of Report</p><p class="font-black text-slate-900 uppercase text-sm">${r.reportTypes}</p></div>
+            <div><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Location</p><p class="font-bold text-slate-800 uppercase text-sm">${r.location}</p></div>
+            <div class="col-span-2"><p class="text-slate-400 font-black uppercase mb-1 tracking-widest text-[9px]">Category</p><p class="font-black text-slate-900 uppercase text-sm">${r.reportTypes}</p></div>
         </div>
-        <div class="mb-12">
-            <p class="text-slate-400 font-black text-[10px] uppercase mb-4 tracking-widest">Incident Description</p>
-            <div class="bg-slate-50 p-6 rounded-[20px] text-[15px] border border-slate-100 font-medium leading-relaxed text-slate-700 whitespace-pre-wrap">${r.description}</div>
+        <div class="mb-14">
+            <p class="text-slate-400 font-black text-[10px] uppercase mb-4 tracking-widest">Description</p>
+            <div class="bg-slate-50 p-8 rounded-[24px] text-[16px] border border-slate-100 font-medium leading-relaxed text-slate-700 whitespace-pre-wrap">${r.description}</div>
         </div>
-        ${r.photo && r.photo !== 'Tidak ada foto' ? `<div class="mb-12"><p class="text-slate-400 font-black text-[10px] uppercase mb-4 tracking-widest">Attached Photo Evidence</p><div class="rounded-[24px] overflow-hidden border-2 border-slate-100"><img src="${r.photo}" class="w-full h-auto object-cover" /></div></div>` : ''}
-        
-        <!-- SIGNATURE AREA FOR PDF -->
-        <div class="hidden print:flex justify-between items-end mt-40 pt-8 border-t border-slate-300">
-          <p class="text-[9px] text-slate-400 uppercase font-mono tracking-tighter">System Generated Report: ${new Date().toLocaleString('id-ID')}</p>
-          <div class="text-center w-56">
-            <p class="text-[10px] font-black mb-20 uppercase tracking-[0.2em] text-slate-500">Authorized Signature</p>
-            <div class="border-b-2 w-full border-slate-900"></div>
-            <p class="text-[11px] font-black text-slate-900 mt-3 uppercase tracking-widest">QSS Transwisata Manager</p>
-          </div>
+        ${r.photo && r.photo !== 'Tidak ada foto' ? `<div class="mb-14"><p class="text-slate-400 font-black text-[10px] uppercase mb-4">Evidence</p><img src="${r.photo}" class="w-full rounded-[24px] border shadow-inner" /></div>` : ''}
+        <div class="hidden print:flex justify-between items-end mt-40 pt-10 border-t border-slate-300">
+          <p class="text-[9px] text-slate-400 uppercase font-mono tracking-tighter italic">Transwisata Reporting System</p>
+          <div class="text-center w-64"><p class="text-[11px] font-black mb-24 uppercase tracking-[0.2em] text-slate-500">Authorized Signature</p><div class="border-b-2 w-full border-slate-900"></div><p class="text-[12px] font-black text-slate-900 mt-4 uppercase">QSS Manager</p></div>
         </div>
       `;
       document.getElementById('view-modal').classList.remove('hidden');
       document.body.classList.add('overflow-hidden');
       lucide.createIcons();
     }
-
-    function closeModal() {
-      document.getElementById('view-modal').classList.add('hidden');
-      document.body.classList.remove('overflow-hidden');
-    }
+    function closeModal() { document.getElementById('view-modal').classList.add('hidden'); document.body.classList.remove('overflow-hidden'); }
   </script>
 </body>
 </html>
