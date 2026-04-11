@@ -51,21 +51,20 @@
       <!-- Header -->
       <div class="px-8 pt-12 pb-8 text-center bg-white flex flex-col items-center">
         
-        <!-- Logo Container dengan Perbaikan Direct Link Google Drive -->
-        <div class="relative inline-flex items-center justify-center w-40 h-40 mb-4 transition-transform duration-500 hover:scale-105">
+        <!-- Logo Container (Ukuran Diperkecil menjadi w-24 h-24) -->
+        <div class="relative inline-flex items-center justify-center w-24 h-24 mb-6 transition-transform duration-500 hover:scale-105">
           <!-- Placeholder saat gambar sedang loading -->
-          <div id="logo-loading" class="absolute inset-0 bg-slate-100 rounded-2xl flex items-center justify-center loading-pulse">
-            <i data-lucide="image" class="w-8 h-8 text-slate-300"></i>
+          <div id="logo-loading" class="absolute inset-0 bg-slate-50 rounded-xl flex items-center justify-center loading-pulse">
+            <i data-lucide="image" class="w-6 h-6 text-slate-300"></i>
           </div>
           
-          <!-- Menggunakan link lh3.googleusercontent.com yang lebih stabil untuk Drive -->
           <img 
             id="main-logo"
             src="https://lh3.googleusercontent.com/d/14rgNQMNWLMZw5A-BBysAlSrZM6i7x-j3" 
             alt="Logo Say Something" 
             class="w-full h-full object-contain relative z-10 opacity-0 transition-opacity duration-500"
             onload="this.classList.remove('opacity-0'); document.getElementById('logo-loading').classList.add('hidden');"
-            onerror="this.onerror=null; this.src='https://placehold.co/200x200/0A1931/C5A866?text=LOGO+QSS';" 
+            onerror="this.onerror=null; this.src='https://placehold.co/100x100/0A1931/C5A866?text=LOGO';" 
           />
         </div>
 
@@ -278,6 +277,7 @@
           </button>
         </div>
       </div>
+      <!-- Report List Area -->
       <div id="admin-list-container" class="print:hidden"></div>
     </div>
   </div>
@@ -286,6 +286,7 @@
   <div id="view-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 print:static print:bg-white print:backdrop-blur-none print:p-0 print:block">
     <div class="bg-white w-full max-w-2xl rounded-[24px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] print:shadow-none print:rounded-none print:max-h-none print:max-w-full print:border-none print:block">
       
+      <!-- Modal Header (Hidden in Print) -->
       <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 print:hidden">
         <div>
           <h3 class="text-xl font-extrabold text-slate-900">Report Details</h3>
@@ -301,12 +302,14 @@
         </div>
       </div>
       
+      <!-- Print Only Header -->
       <div class="hidden print:block text-center pt-8 pb-6 border-b-2 border-slate-900 mb-8 mx-8">
         <h1 class="text-3xl font-extrabold text-slate-900 uppercase tracking-widest mb-1">Incident Report</h1>
         <p class="text-sm font-bold text-slate-500 uppercase">Quality, Safety & Security Transwisata</p>
         <p id="m-print-id" class="text-xs text-slate-400 mt-2"></p>
       </div>
 
+      <!-- Modal Content -->
       <div class="p-6 overflow-y-auto custom-scrollbar print:overflow-visible print:p-8">
         <div class="grid grid-cols-2 gap-y-6 gap-x-4 mb-6">
           <div>
@@ -337,6 +340,7 @@
           </div>
         </div>
         
+        <!-- Print Only Footer -->
         <div class="hidden print:flex justify-between items-end mt-16 pt-8 border-t border-slate-200">
           <div><p id="m-print-time" class="text-xs text-slate-400"></p></div>
           <div class="text-center w-48">
